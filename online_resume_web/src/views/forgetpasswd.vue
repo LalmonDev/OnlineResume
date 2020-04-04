@@ -1,12 +1,12 @@
 <template>
   <div>
-   <h1>Sucess login!</h1>
+   <h1>forgetpasswd!</h1>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'sucess'
+    name: 'forgetpasswd'
   }
 </script>
 

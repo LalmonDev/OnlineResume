@@ -1,86 +1,66 @@
 <template>
     <div class="index">
         <div id="index_pc_bj">
-            <Form ref="formLogin" :model="formLogin" :rules="ruleLogin">
+            <Form ref="formRegister" :model="formRegister" :rules="ruleRegister">
                 <div class="wrap_conter">
                     <ul>
-                        <li><h2>用户登录</h2></li>
+                        <li><h2>用户注册</h2></li>
                         <li>
                             <!-- <div class="name-password-error" v-if="this.$store.state.ifSign">用户名或密码错误</div> -->
                             <dl>
                                 <FormItem prop="userName" >
-                                    <Input v-model="formLogin.userName" type="text" placeholder="登录名" >
+                                    <Input v-model="formRegister.userName" type="text" placeholder="登录名" >
                                         <Icon type="ios-person-outline" slot="prepend" ></Icon>
                                     </Input>
                                 </FormItem>
                                 <FormItem prop="password">
-                                    <Input v-model="formLogin.password" type="password" placeholder="密码" >
+                                    <Input v-model="formRegister.password" type="password" placeholder="密码" >
                                         <Icon type="ios-lock-outline" slot="prepend"></Icon>
                                     </Input>
                                 </FormItem>
-                                <FormItem>
-                                    <Button type="primary" @click="login('formLogin')" style="width: 250px">登录</Button>
+                                <FormItem prop="phone">
+                                    <Input v-model="formRegister.phone" type="text" placeholder="手机号" >
+                                        <Icon type="ios-phone-outline" slot="prepend"></Icon>
+                                    </Input>
                                 </FormItem>
                                 <FormItem>
-                                  <router-link to="/forgetpasswd">
-                                    <el-link type="primary">忘记密码</el-link>
-                                  </router-link>
+                                    <Button type="primary" @click="register('formRegister')" style="width: 250px">提交</Button>
                                 </FormItem>
                             </dl>
                         </li>
                     </ul>
                 </div>
-                <FormItem>
-                  <router-link to="/register">
-                    <el-link type="primary">没有账号？快速注册</el-link>
-                  </router-link>
-                </FormItem>
             </Form>
         </div>
     </div>
 </template>
 <script>
     export default {
-      name: 'login',
+      name: 'register',
         data(){
             return {
-                formLogin:{
+                formRegister:{
                     userName: null,
                     password: null
                 },
-                ruleLogin: {
+                ruleRegister: {
                         userName: [
                             { required: true, message: '请填写用户名', trigger: 'blur' }
                         ],
                         password: [
                             { required: true, message: '请填写密码', trigger: 'blur' },
+                        ],
+                        phone: [
+                            { required: true, message: '请填写手机号', trigger: 'blur' },
                         ]
-                },
-                responseResult: []
+                }
             }
         },
         methods: {
-            login(formLogin){
-                this.$refs[formLogin].validate((valid) => {
+            register(formRegister){
+                this.$refs[formRegister].validate((valid) => {
                     if(valid){
-                        // this.$store.dispatch('users/userLogin',{"user_name":this.formLogin.userName,"user_password":this.formLogin.password,"router":this.$router});
-                        // this.$router.push({path:'/sucess'});
-                        this.$axios
-                          .post('/login',{
-                            userName: this.formLogin.userName,
-                            password: this.formLogin.password
-                          })
-                          .then(successResponse => {
-                            if(successResponse.data.code == 200){
-                              this.$router.push({path:'/sucess'})
-                            }else if(successResponse.data.code == 400){
-                              alert('用户名或密码错误 请重新登录！')
-
-                            }
-                          })
-                          .catch(faildResponse => {
-                            alert(' 请重新登录！')
-                          })
+                        
                     }
                 })
             }

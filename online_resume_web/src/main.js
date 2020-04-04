@@ -7,8 +7,8 @@ import router from './router'
 import VueRouter from 'vue-router'
 
 // 引入axios
-import VueAxios from 'vue-axios'
-import axios from './axios'
+// import VueAxios from 'vue-axios'
+// import axios from './axios'
 
 // 引入iView
 import iView from 'iview'
@@ -18,11 +18,15 @@ import 'iview/dist/styles/iview.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
-Vue.use(VueAxios,axios)
+// Vue.use(VueAxios,axios)
 Vue.use(iView)
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+
+var axios = require('axios')
+axios.defaults.baseURL = 'http://localhost:8081/api';
+Vue.prototype.$axios = axios
 
 /* eslint-disable no-new */
 new Vue({

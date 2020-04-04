@@ -10,3 +10,5 @@ spring:
       ddl-auto: update
 #   show-sql   每次对数据库进行操作时，在控制台显示SQL
     show-sql: true
+server:
+  port: 8081
