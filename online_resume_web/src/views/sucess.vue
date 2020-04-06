@@ -1,12 +1,16 @@
 <template>
   <div>
-   <h1>Sucess login!</h1>
+   <h1>welcome {{user}}</h1>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'sucess'
+    data(){
+      return{
+        user: this.$route.query.id
+      }
+    }
   }
 </script>
 
