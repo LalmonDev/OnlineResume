@@ -1,37 +1,37 @@
 <template>
     <div class="index">
         <div id="index_pc_bj">
-            <el-form ref="formLogin" :model="formLogin" :rules="ruleLogin">
+            <Form ref="formLogin" :model="formLogin" :rules="ruleLogin">
                 <div class="wrap_conter">
                     <ul>
                         <li><h2>用户登录</h2></li>
                         <li>
                             <!-- <div class="name-password-error" v-if="this.$store.state.ifSign">用户名或密码错误</div> -->
                             <dl>
-                                <el-form-item prop="userName" >
-                                    <el-input name="userName" v-model="formLogin.userName" type="text" placeholder="登录名" >
+                                <FormItem prop="userName" >
+                                    <Input name="userName" v-model="formLogin.userName" type="text" placeholder="登录名" >
                                         <Icon type="ios-person-outline" slot="prepend" ></Icon>
-                                    </el-input>
-                                </el-form-item>
-                                <el-form-item prop="password">
-                                    <el-input name="password" v-model="formLogin.password" type="password" placeholder="密码" >
+                                    </Input>
+                                </FormItem>
+                                <FormItem prop="password">
+                                    <Input name="password" v-model="formLogin.password" type="password" placeholder="密码" >
                                         <Icon type="ios-lock-outline" slot="prepend"></Icon>
-                                    </el-input>
-                                </el-form-item>
-                                <el-form-item style="margin-bottom: 60px;text-align: center">
-                                    <el-button type="primary"  @click="login('formLogin')" style="width: 45%">登录</el-button>
-                                    <el-button style="width: 45%" type="primary" @click="register()">注册</el-button>
-                                </el-form-item>
-                                <el-form-item>
+                                    </Input>
+                                </FormItem>
+                                <FormItem style="margin-bottom: 60px;text-align: center">
+                                    <Button type="primary"  @click="login('formLogin')" style="width: 45%">登录</Button>
+                                    <Button style="width: 45%" type="primary" @click="register()">注册</Button>
+                                </FormItem>
+                                <FormItem>
                                   <router-link to="/forgetpasswd">
                                     <el-link type="primary">忘记密码</el-link>
                                   </router-link>
-                                </el-form-item>
+                                </FormItem>
                             </dl>
                         </li>
                     </ul>
                 </div>
-            </el-form>
+            </Form>
         </div>
     </div>
 </template>
@@ -47,8 +47,7 @@
                 ruleLogin: {
                         userName: [{ required: true, message: '请填写用户名', trigger: 'blur' }],
                         password: [{ required: true, message: '请填写密码', trigger: 'blur' }]
-                },
-                responseResult: []
+                }
             }
         },
         methods: {
@@ -60,13 +59,13 @@
                         // this.$router.push({path:'/sucess'});
                         this.$axios
                           .post('/login',{
-                            username: this.formLogin.userName,
-                            password: this.formLogin.password
+                            user_name: this.formLogin.userName,
+                            user_password: this.formLogin.password
                           })
                           .then(response => {
                             let code = response.data.code
                             if(code == 200){
-                              this.$router.push({path:'/sucess',query:{id:this.formLogin.userName}})
+                              this.$router.replace({path:'/user_index',query:{user_name:this.formLogin.userName}})
                             }else if(code == 400){
                               alert('用户名或密码错误 请重新登录！')
                               this.formLogin.userName = null;

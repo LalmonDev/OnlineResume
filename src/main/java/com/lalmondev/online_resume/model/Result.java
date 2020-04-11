@@ -1,6 +1,6 @@
-package com.lalmondev.online_resume.entity;
+package com.lalmondev.online_resume.model;
 
-public class resultCode {
+public class Result {
     private int code;
 
     public void setCode(int code){
@@ -10,7 +10,7 @@ public class resultCode {
         return code;
     }
 
-    public resultCode(int code){
+    public Result(int code){
         this.code = code;
     }
 }

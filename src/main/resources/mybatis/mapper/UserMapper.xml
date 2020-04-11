@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lalmondev.online_resume.dao.UserDao">
+
+	<resultMap id="userMap" type="com.lalmondev.online_resume.model.UserEntity">
+		<id column="user_id" property="user_id" />
+		<result column="user_name" property="user_name" />
+		<result column="user_password" property="user_password" />
+		<result column="user_phone" property="user_phone" />
+	</resultMap>
+
+	<!-- 获取user列表 -->
+	<select id="usersList" resultMap="userMap">
+	<![CDATA[select * from user_info]]>
+		<where>
+			<if test="user_name != null and user_name != ''">
+				user_name = #{user_name}
+			</if>
+		</where>
+	    <![CDATA[ order by id desc ]]>
+		<if test="pageSize != null and start != null ">
+			limit #{start},#{pageSize}
+		</if>
+	</select>
+
+	<!-- 获取user列表的总量 -->
+	<select id="usersSize" resultType="Integer">  
+	    <![CDATA[select count(*) from user_info]]>
+		<where>
+			<if test="user_name != null and user_name != ''">
+				user_name = #{user_name}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert">
+		<if test="userEntity != null">
+			insert into user_info (user_name,user_password,user_phone) values
+			(#{userEntity.user_name},#{userEntity.user_password},#{userEntity.user_phone})
+		</if>
+	</insert>
+
+	<delete id="del">
+		delete from user_info
+		<where>
+			<if test="userEntity.user_id != null and userEntity.user_id != ''">user_id = #{userEntity.user_id}</if>
+			<if test="userEntity.user_name != null and userEntity.user_name != ''">and user_name = #{userEntity.user_name}</if>
+			<if test="userEntity.user_password != null and userEntity.user_password != ''">and user_password = #{userEntity.user_password }</if>
+			<if test="userEntity.user_phone != null and userEntity.user_phone != ''">and user_phone = #{userEntity.user_phone}</if>
+		</where>
+	</delete>
+
+<!--	<update id="update">-->
+<!--		update user_info set user_name = #{user_name},sex = #{sex},age = #{age}-->
+<!--		<where>-->
+<!--			id = #{id}-->
+<!--		</where>-->
+<!--	</update>-->
+
+	<select id="select">
+		select * from user_info
+		<where>
+			<if test="user_id != null">user_id = #{user_id}</if>
+			<if test="user_name != null">and user_name = #{user_name}</if>
+			<if test="user_password != null">and user_password = #{user_password}</if>
+			<if test="user_phone != null">and user_phone = #{user_phone}</if>
+		</where>
+	</select>
+
+	<select id="getUserEntityByLoginName" resultMap="userMap">
+		select * from user_info
+		<where>
+			user_name = #{user_name}
+		</where>
+	</select>
+
+	<!-- 新建用户信息 -->
+	<insert id="insertUser">
+		insert into user_info (user_name,user_password,user_phone)
+		values
+		(#{userEntity.user_name},#{userEntity.user_password},#{userEntity.user_phone})
+	</insert>
+
+<!--	&lt;!&ndash; 更新用户信息 &ndash;&gt;-->
+<!--	<update id="updateUser">-->
+<!--		update sys_user set-->
+<!--		name = #{userEntity.name},-->
+<!--		login_name =-->
+<!--		#{userEntity.loginName},-->
+<!--		password = #{userEntity.password},-->
+<!--		email =-->
+<!--		#{userEntity.email}-->
+<!--		<where>-->
+<!--			id = #{userEntity.id}-->
+<!--		</where>-->
+<!--	</update>-->
+<!--	&lt;!&ndash; 删除用户信息 &ndash;&gt;-->
+<!--	<delete id="deleteUsers">-->
+<!--		delete from sys_user-->
+<!--		<where>-->
+<!--			<if test="groupId !=null">-->
+<!--				id in-->
+<!--				<foreach collection="groupId" item="item" index="index"-->
+<!--					open="(" separator="," close=")">-->
+<!--					#{item}-->
+<!--				</foreach>-->
+<!--			</if>-->
+<!--		</where>-->
+<!--	</delete>-->
+<!--	-->
+</mapper>

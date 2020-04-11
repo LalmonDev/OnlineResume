@@ -8,19 +8,19 @@
                         <li>
                             <!-- <div class="name-password-error" v-if="this.$store.state.ifSign">用户名或密码错误</div> -->
                             <dl>
-                                <FormItem prop="userName" >
-                                    <Input v-model="formRegister.userName" type="text" placeholder="登录名" >
+                                <FormItem prop="user_name" >
+                                    <Input v-model="formRegister.user_name" type="text" placeholder="登录名" >
                                         <Icon type="ios-person-outline" slot="prepend" ></Icon>
                                     </Input>
                                 </FormItem>
-                                <FormItem prop="password">
-                                    <Input v-model="formRegister.password" type="password" placeholder="密码" >
+                                <FormItem prop="user_password">
+                                    <Input v-model="formRegister.user_password" type="password" placeholder="密码" >
                                         <Icon type="ios-lock-outline" slot="prepend"></Icon>
                                     </Input>
                                 </FormItem>
-                                <FormItem prop="phone">
-                                    <Input v-model="formRegister.phone" type="text" placeholder="手机号" >
-                                        <Icon type="ios-phone-outline" slot="prepend"></Icon>
+                                <FormItem prop="user_phone">
+                                    <Input v-model="formRegister.user_phone" type="text" placeholder="手机号" >
+                                        <Icon type="ios-call-outline" slot="prepend"></Icon>
                                     </Input>
                                 </FormItem>
                                 <FormItem>
@@ -39,18 +39,20 @@
       name: 'register',
         data(){
             return {
+                dialogVisible: false,
                 formRegister:{
-                    userName: null,
-                    password: null
+                    user_name: null,
+                    user_password: null,
+                    user_phone: null
                 },
                 ruleRegister: {
-                        userName: [
+                        user_name: [
                             { required: true, message: '请填写用户名', trigger: 'blur' }
                         ],
-                        password: [
+                        user_password: [
                             { required: true, message: '请填写密码', trigger: 'blur' },
                         ],
-                        phone: [
+                        user_phone: [
                             { required: true, message: '请填写手机号', trigger: 'blur' },
                         ]
                 }
@@ -60,12 +62,48 @@
             register(formRegister){
                 this.$refs[formRegister].validate((valid) => {
                     if(valid){
-                        
+                      if(this.formRegister.user_name == "admin"){
+                          alert('该账户不允许注册')
+                          this.formRegister.user_name = null;
+                          this.formRegister.user_password = null;
+                          this.formRegister.user_phone = null;
+                          return
+                        }
+
+                        this.$axios
+                          .post('/register',{
+                            user_name: this.formRegister.user_name,
+                            user_password: this.formRegister.user_password,
+                            user_phone: this.formRegister.user_phone
+                          })
+                          .then(response => {
+                            let code = response.data.code
+                            if(code == 200){
+                              alert('注册成功')
+                              this.$router.push({path:'/'})
+                              dialogVisible: true
+                            }else if(code == 201){
+                              alert('用户已存在')
+                              this.formRegister.user_name = null;
+                              this.formRegister.user_password = null;
+                              this.formRegister.user_phone = null
+                            }else if(code == 400){
+                              alert('参数错误，请重新填写！')
+                              this.formRegister.user_name = null;
+                              this.formRegister.user_password = null;
+                              this.formRegister.user_phone = null
+                            }
+                          })
+                          .catch(failResponse => {
+                          })
                     }
                 })
-            }
-        }
-    };
+            },
+			goto_login(){
+				this.$router.push({path:'/login'})
+			}
+    }
+  };
 </script>
 <style scoped>
     .index {

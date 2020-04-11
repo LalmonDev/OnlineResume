@@ -4,11 +4,8 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-#      update 没有表时创建，有了的就更新
-      ddl-auto: update
-#   show-sql   每次对数据库进行操作时，在控制台显示SQL
-    show-sql: true
 server:
   port: 8081
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.lalmondev.online_resume.model
