@@ -67,7 +67,7 @@
                             if(code == 200){
                               this.$router.replace({path:'/user_index',query:{user_name:this.formLogin.userName}})
                             }else if(code == 400){
-                              alert('用户名或密码错误 请重新登录！')
+                              this.$Message.info('用户名或密码错误 请重新登录！');
                               this.formLogin.userName = null;
                               this.formLogin.password = null
                             }

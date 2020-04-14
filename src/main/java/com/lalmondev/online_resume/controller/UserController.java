@@ -15,8 +15,9 @@ public class UserController {
     private UserService userService;
 
     @CrossOrigin
-    @GetMapping("api/UserInfo/{user_name}")
-    public UserEntity userGet(@PathVariable String user_name){
+    @RequestMapping(value = "/api/UserInfo",method= RequestMethod.GET)
+    @ResponseBody
+    public UserEntity userGet(@RequestParam("user_name") String user_name){
         UserEntity userEntity = userService.getUserEntityByLoginName(user_name);
         if (userEntity != null){
             System.out.println("获取个人信息成功");

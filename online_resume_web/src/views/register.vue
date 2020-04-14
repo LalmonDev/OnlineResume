@@ -63,7 +63,7 @@
                 this.$refs[formRegister].validate((valid) => {
                     if(valid){
                       if(this.formRegister.user_name == "admin"){
-                          alert('该账户不允许注册')
+                          this.$Message.info('该账户不允许注册')
                           this.formRegister.user_name = null;
                           this.formRegister.user_password = null;
                           this.formRegister.user_phone = null;
@@ -83,12 +83,12 @@
                               this.$router.push({path:'/'})
                               dialogVisible: true
                             }else if(code == 201){
-                              alert('用户已存在')
+                              this.$Message.info('用户已存在')
                               this.formRegister.user_name = null;
                               this.formRegister.user_password = null;
                               this.formRegister.user_phone = null
                             }else if(code == 400){
-                              alert('参数错误，请重新填写！')
+                              this.$Message.info('参数错误，请重新填写！')
                               this.formRegister.user_name = null;
                               this.formRegister.user_password = null;
                               this.formRegister.user_phone = null
