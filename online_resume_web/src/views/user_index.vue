@@ -2,39 +2,38 @@
     <div class="layout">
         <Layout>
             <Header :style="{ width: '100%'}">
-                <Menu mode="horizontal" theme="dark" active-name="user_menu">
+                <Menu @on-select="handleSelect" mode="horizontal" theme="dark" >
                     <div class="layout-logo">
                       <MenuItem name="logo">
-                          你好，{{user_name}}
+                          <span>欢迎：<label>{{user_name}}</label></span>
                       </MenuItem>
                     </div>
                     <div class="layout-nav">
-                        <MenuItem name="new_resume">
+                        <MenuItem name="newResume">
                             <Icon type="ios-add-circle-outline" />
                             新建简历
                         </MenuItem>
-                        <MenuItem name="view_resume">
+                        <MenuItem name="showResume">
                             <Icon type="md-eye" />
                             预览简历
                         </MenuItem>
-                        <MenuItem name="download_resume">
+                       <!-- <MenuItem name="downloadResume">
                             <Icon type="md-cloud-download" />
                             导出简历
-                        </MenuItem>
-                        <MenuItem name="owner_info" @click.native="getUserInfo">
+                        </MenuItem> -->
+                        <MenuItem name="userInfo">
                             <Icon type="md-contact" />
                             个人信息
                         </MenuItem>
                     </div>
                 </Menu>
             </Header>
-            <Content :style="{margin: '20px 20px 0', background: '#fff', minHeight: '500px'}">
+           <Content :style="{margin: '20px 20px 0', background: '#fff', minHeight: '500px'}">
                  <div id="show_user_info">
-                   <ul><span>用户名：{{userName}}</span></ul>
-                   <ul><span>手机号：{{userPhone}}</span></ul>
+                   <router-view></router-view>
                  </div>
             </Content>
-            <Footer class="layout-footer-center">2019-2020 &copy; LalmonDev</Footer>
+            <Footer class="layout-footer-center">2019 - 2020 &copy; LalmonDev</Footer>
         </Layout>
     </div>
 </template>
@@ -42,28 +41,14 @@
     export default {
       data(){
         return{
-          user_name: this.$route.query.user_name,
-          userName:'',
-          userPhone:''
+          user_name: this.$route.query.user_name
         }
       },
+
       methods:{
-        getUserInfo () {
-          this.$axios
-            .get('/UserInfo',{
-              params: {
-                user_name: 'luo'
-                }
-            })
-            .then(response => {
-                this.userName =response.data.user_name;
-                this.userPhone =response.data.user_phone
-            })
-            .catch(failResponse => {
-            })
-          },
-
-
+        handleSelect(name){
+          this.$router.push({path:name,query:{user_name:this.user_name}})
+        },
         }
     }
 </script>

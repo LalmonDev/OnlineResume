@@ -46,6 +46,7 @@ public class UserController {
 //        }
 //    }
 
+//    登录
     @CrossOrigin
     @PostMapping(value = "api/login")
     @ResponseBody
@@ -67,6 +68,7 @@ public class UserController {
         }
     }
 
+//    新建用户
     @CrossOrigin
     @PostMapping(value = "api/register")
     @ResponseBody
