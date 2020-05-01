@@ -4,7 +4,6 @@ package com.lalmondev.online_resume.controller;
 import com.lalmondev.online_resume.model.Result;
 import com.lalmondev.online_resume.model.UserEntity;
 import com.lalmondev.online_resume.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

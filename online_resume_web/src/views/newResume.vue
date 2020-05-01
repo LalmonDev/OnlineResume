@@ -17,8 +17,8 @@
                 </FormItem>
               </Col>
               <Col span="4" offset="4">
-               <FormItem label="民族" prop="minzu" style="width:200px">
-                  <Input v-model="formValidate.minzu" style="width: 200px" placeholder="民族"></Input>
+               <FormItem label="民族" prop="nation" style="width:200px">
+                  <Input v-model="formValidate.nation" style="width: 200px" placeholder="民族"></Input>
                </FormItem>
                </Col>
           </Row>
@@ -37,9 +37,9 @@
           <Col span="4" offset="4">
             <FormItem label="婚姻状况" prop="marry">
             <Select v-model="formValidate.marry" style="width:200px" >
-                <Option value="yihun" >已婚</Option>
-                <Option value="weihun">未婚</Option>
-                <Option value="liyi">离异</Option>
+                <Option value="已婚" >已婚</Option>
+                <Option value="未婚">未婚</Option>
+                <Option value="离异">离异</Option>
             </Select>
             </FormItem>
           </Col>
@@ -53,7 +53,7 @@
            </Col>
            <Col span="4" offset="4">
             <FormItem label="联系电话" prop="phone" style="width:200px">
-               <Input v-model="formValidate.face" style="width: 200px" placeholder="联系电话"></Input>
+               <Input v-model="formValidate.phone" style="width: 200px" placeholder="联系电话"></Input>
             </FormItem>
             </Col>
             <Col span="4" offset="4" >
@@ -108,27 +108,45 @@
              </FormItem>
              </Col>
              <Col span="4" offset="4" >
-               <FormItem label="学位" prop="xuewei">
-                   <Input v-model="formValidate.xuewei" style="width: 200px" placeholder="学位 "></Input>
+               <FormItem label="学位" prop="degree">
+                   <Input v-model="formValidate.degree" style="width: 200px" placeholder="学位 "></Input>
                </FormItem>
              </Col>
             </Row>
             <Row>
-              <FormItem label="描述" style="width:1000px" prop="school_descrip" v-model="formValidate.school_descrip">
+              <FormItem label="描述" style="width:1000px" prop="school_descrip" >
                 <Input v-model="formValidate.school_descrip" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
               </FormItem>
             </Row>
 
-          <Divider>其他</Divider><br>
-          <FormItem label="爱好" style="width:1000px" prop="hobby" v-model="formValidate.hobby">
-            <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
+          <Divider>学校情况</Divider><br>
+          <FormItem label="技能特长" style="width:1000px" prop="skill">
+            <Input v-model="formValidate.skill" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
           </FormItem>
+          <FormItem label="实习经历" style="width:1000px" prop="job_experience">
+            <Input v-model="formValidate.job_experience" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
+          </FormItem>
+           <FormItem label="校园经历" style="width:1000px" prop="school_experience">
+             <Input v-model="formValidate.school_experience" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
+           </FormItem>
+           <FormItem label="获奖情况" style="width:1000px" prop="award">
+             <Input v-model="formValidate.award" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
+           </FormItem>
+
+           <Divider>个人情况</Divider><br>
+           <FormItem label="兴趣爱好" style="width:1000px" prop="interest">
+             <Input v-model="formValidate.interest" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
+           </FormItem>
+           <FormItem label="自我评价" style="width:1000px" prop="evaluate">
+             <Input v-model="formValidate.evaluate" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
+           </FormItem>
 
 
           <FormItem>
               <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
               <Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
           </FormItem>
+          <br>
       </Form>
       </ul>
     </div>
@@ -138,42 +156,85 @@
     export default {
         data () {
             return {
+              userName: this.$route.query.user_name,
+
                 formValidate: {
                     name: '',
-                    mail: '',
-                    city: '',
-                    gender: '',
-                    interest: [],
+                    sex: '',
+                    nation: '',
                     date: '',
-                    time: '',
-                    desc: ''
+                    face:'',
+                    marry: '',
+                    home: '',
+                    phone: '',
+                    mail: '',
+                    job: '',
+                    city: '',
+                    money: '',
+                    study_start_day: '',
+                    study_stop_day: '',
+                    school: '',
+                    major: '',
+                    degree: '',
+                    school_descrip: '',
+                    skill: '',
+                    job_experience: '',
+                    school_experience: '',
+                    award: '',
+                    interest: '',
+                    evaluate: '',
                 },
                 ruleValidate: {
                     name: [
                         { required: true, message: '姓名不能为空', trigger: 'blur' }
                     ],
-                    mail: [
-                        { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
+                    sex: [
+                        { required: true, message: '性别不能为空', trigger: 'blur' }
                     ],
-                    city: [
-                        { required: true, message: 'Please select the city', trigger: 'change' }
-                    ],
-                    gender: [
-                        { required: true, message: 'Please select gender', trigger: 'change' }
-                    ],
-                    interest: [
-                        { required: true, type: 'array', min: 1, message: 'Choose at least one hobby', trigger: 'change' },
-                        { type: 'array', max: 2, message: 'Choose two hobbies at best', trigger: 'change' }
+                    nation: [
+                        { required: true, message: '民族不能为空', trigger: 'blur' }
                     ],
                     date: [
-                        { required: true, type: 'date', message: 'Please select the date', trigger: 'change' }
+                        { required: true, type: 'date', message: '日期不能为空', trigger: 'change' }
                     ],
-                    time: [
-                        { required: true, type: 'string', message: 'Please select time', trigger: 'change' }
+                    face: [
+                        { required: true, message: '政治面貌不能为空', trigger: 'blur' }
                     ],
-                    desc: [
-                        { required: true, message: 'Please enter a personal introduction', trigger: 'blur' },
-                        { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
+                    marry: [
+                        { required: true, message: '婚姻状况不能为空', trigger: 'change' }
+                    ],
+                    home: [
+                        { required: true, message: '籍贯不能为空', trigger: 'blur' }
+                    ],
+                    phone: [
+                        { required: true, message: '联系电话不能为空', trigger: 'blur' }
+                    ],
+                    mail: [
+                        { required: true, message: '邮箱不能为空', trigger: 'blur' },
+                    ],
+                    job: [
+                        { required: true, message: '求职岗位不能为空', trigger: 'blur' }
+                    ],
+                    city: [
+                        { required: true, message: '意向城市不能为空', trigger: 'blur' }
+                    ],
+                    money: [
+                        { required: true, message: '期望薪资不能为空', trigger: 'blur' }
+                    ],
+                    study_start_day: [
+                        { required: true, type: 'date', message: '入学日期不能为空', trigger: 'change' }
+                    ],
+                    study_stop_day: [
+                        { required: true, type: 'date', message: '毕业日期不能为空', trigger: 'change' }
+                    ],
+                    school: [
+                        { required: true, message: '学校不能为空', trigger: 'blur' }
+                    ],
+                    major: [
+                        { required: true, message: '专业不能为空', trigger: 'blur' }
+                    ],
+                    degree: [
+                        { required: true, message: '学位不能为空', trigger: 'blur' }
                     ]
                 }
             }
@@ -183,14 +244,17 @@
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.$Message.success('Success!');
+                       
                     } else {
                         this.$Message.error('Fail!');
+                        alert(this.userName)
                     }
                 })
             },
             handleReset (name) {
                 this.$refs[name].resetFields();
-            }
+            },
+
         }
     }
 </script>
