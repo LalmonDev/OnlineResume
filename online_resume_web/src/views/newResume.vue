@@ -26,7 +26,7 @@
         <Row>
           <Col span="4">
               <FormItem label="出生年月" style="width: 200px" prop="date">
-                  <DatePicker type="date" style="width: 200px" placeholder="请选择" v-model="formValidate.date"></DatePicker>
+                  <DatePicker type="date"  @on-change="formValidate.date=$event" :value="formatTime" style="width: 200px" placeholder="请选择" v-model="formValidate.date" ></DatePicker>
               </FormItem>
           </Col>
           <Col span="4" offset="4">
@@ -86,12 +86,12 @@
           <Row>
                 <Col span="2">
                   <FormItem label="起止日期" prop="study_start_day">
-                    <DatePicker type="date" style="width: 110px" placeholder="入学年月" v-model="formValidate.study_start_day"></DatePicker>
+                    <DatePicker type="date" @on-change="formValidate.study_start_day=$event" :value="formatTime" style="width: 110px" placeholder="入学年月" v-model="formValidate.study_start_day"></DatePicker>
                   </FormItem>
                 </Col>
                 <Col span="2" offset="1">
                   <FormItem prop="study_stop_day">
-                    <DatePicker type="date" style="width: 110px" placeholder="毕业年月" v-model="formValidate.study_stop_day"></DatePicker>
+                    <DatePicker type="date" @on-change="formValidate.study_stop_day=$event" :value="formatTime" style="width: 110px" placeholder="毕业年月" v-model="formValidate.study_stop_day"></DatePicker>
                   </FormItem>
                 </Col>
               </Row>
@@ -157,6 +157,7 @@
         data () {
             return {
               userName: this.$route.query.user_name,
+              formatTime: '2019-03-10',
 
                 formValidate: {
                     name: '',
@@ -184,59 +185,59 @@
                     interest: '',
                     evaluate: '',
                 },
-                ruleValidate: {
-                    name: [
-                        { required: true, message: '姓名不能为空', trigger: 'blur' }
-                    ],
-                    sex: [
-                        { required: true, message: '性别不能为空', trigger: 'blur' }
-                    ],
-                    nation: [
-                        { required: true, message: '民族不能为空', trigger: 'blur' }
-                    ],
-                    date: [
-                        { required: true, type: 'date', message: '日期不能为空', trigger: 'change' }
-                    ],
-                    face: [
-                        { required: true, message: '政治面貌不能为空', trigger: 'blur' }
-                    ],
-                    marry: [
-                        { required: true, message: '婚姻状况不能为空', trigger: 'change' }
-                    ],
-                    home: [
-                        { required: true, message: '籍贯不能为空', trigger: 'blur' }
-                    ],
-                    phone: [
-                        { required: true, message: '联系电话不能为空', trigger: 'blur' }
-                    ],
-                    mail: [
-                        { required: true, message: '邮箱不能为空', trigger: 'blur' },
-                    ],
-                    job: [
-                        { required: true, message: '求职岗位不能为空', trigger: 'blur' }
-                    ],
-                    city: [
-                        { required: true, message: '意向城市不能为空', trigger: 'blur' }
-                    ],
-                    money: [
-                        { required: true, message: '期望薪资不能为空', trigger: 'blur' }
-                    ],
-                    study_start_day: [
-                        { required: true, type: 'date', message: '入学日期不能为空', trigger: 'change' }
-                    ],
-                    study_stop_day: [
-                        { required: true, type: 'date', message: '毕业日期不能为空', trigger: 'change' }
-                    ],
-                    school: [
-                        { required: true, message: '学校不能为空', trigger: 'blur' }
-                    ],
-                    major: [
-                        { required: true, message: '专业不能为空', trigger: 'blur' }
-                    ],
-                    degree: [
-                        { required: true, message: '学位不能为空', trigger: 'blur' }
-                    ]
-                }
+                // ruleValidate: {
+                //     name: [
+                //         { required: true, message: '姓名不能为空', trigger: 'blur' }
+                //     ],
+                //     sex: [
+                //         { required: true, message: '性别不能为空', trigger: 'blur' }
+                //     ],
+                //     nation: [
+                //         { required: true, message: '民族不能为空', trigger: 'blur' }
+                //     ],
+                //     date: [
+                //         { required: true, type: 'date', message: '日期不能为空', trigger: 'change' }
+                //     ],
+                //     face: [
+                //         { required: true, message: '政治面貌不能为空', trigger: 'blur' }
+                //     ],
+                //     marry: [
+                //         { required: true, message: '婚姻状况不能为空', trigger: 'change' }
+                //     ],
+                //     home: [
+                //         { required: true, message: '籍贯不能为空', trigger: 'blur' }
+                //     ],
+                //     phone: [
+                //         { required: true, message: '联系电话不能为空', trigger: 'blur' }
+                //     ],
+                //     mail: [
+                //         { required: true, message: '邮箱不能为空', trigger: 'blur' },
+                //     ],
+                //     job: [
+                //         { required: true, message: '求职岗位不能为空', trigger: 'blur' }
+                //     ],
+                //     city: [
+                //         { required: true, message: '意向城市不能为空', trigger: 'blur' }
+                //     ],
+                //     money: [
+                //         { required: true, message: '期望薪资不能为空', trigger: 'blur' }
+                //     ],
+                //     study_start_day: [
+                //         { required: true, type: 'date', message: '入学日期不能为空', trigger: 'change' }
+                //     ],
+                //     study_stop_day: [
+                //         { required: true, type: 'date', message: '毕业日期不能为空', trigger: 'change' }
+                //     ],
+                //     school: [
+                //         { required: true, message: '学校不能为空', trigger: 'blur' }
+                //     ],
+                //     major: [
+                //         { required: true, message: '专业不能为空', trigger: 'blur' }
+                //     ],
+                //     degree: [
+                //         { required: true, message: '学位不能为空', trigger: 'blur' }
+                //     ]
+                // }
             }
         },
         methods: {
@@ -244,7 +245,21 @@
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.$Message.success('Success!');
-                       
+
+                        this.$axios
+                          .post('/newResume/'+ this.userName, this.formValidate)
+                          .then(response => {
+                            let code = response.data.code
+                            if(code == 200){
+                              this.$router.replace({path:'/showResume',query:{user_name:this.userName}})
+                            }else if(code == 400){
+                              alert("return 400")
+                            }
+                          })
+                          .catch(failResponse => {
+                          })
+
+                        alert(this.userName)
                     } else {
                         this.$Message.error('Fail!');
                         alert(this.userName)
