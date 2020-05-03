@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lalmondev.online_resume.dao.ResumeDao">
+    <resultMap id="resumeMap" type="com.lalmondev.online_resume.model.ResumeEntity">
+        <id column="resume_id" property="resume_id" />
+        <result column="name" property="name" />
+        <result column="sex" property="sex" />
+        <result column="nation" property="nation" />
+        <result column="date" property="date" />
+        <result column="face" property="face" />
+        <result column="marry" property="marry" />
+        <result column="home" property="home" />
+        <result column="phone" property="phone" />
+        <result column="mail" property="mail" />
+        <result column="job" property="job" />
+        <result column="city" property="city" />
+        <result column="money" property="money" />
+        <result column="study_start_day" property="study_start_day" />
+        <result column="study_stop_day" property="study_stop_day" />
+        <result column="school" property="school" />
+        <result column="major" property="major" />
+        <result column="degree" property="degree" />
+        <result column="school_descrip" property="school_descrip" />
+        <result column="skill" property="skill" />
+        <result column="job_experience" property="job_experience" />
+        <result column="school_experience" property="school_experience" />
+        <result column="award" property="award" />
+        <result column="interest" property="interest" />
+        <result column="evaluate" property="evaluate" />
+    </resultMap>
+    <insert id="insert">
+        <if test="resumeEntity != null">
+            insert into resume_info
+            (name,sex,nation,date,face,marry,home,phone,mail,job,city,money,study_start_day,study_stop_day,school,major,degree,school_descrip,skill,job_experience,school_experience,award,interest,evaluate)
+            values
+            (#{resumeEntity.name},#{resumeEntity.sex},#{resumeEntity.nation},#{resumeEntity.date},#{resumeEntity.face},#{resumeEntity.marry},#{resumeEntity.home},#{resumeEntity.phone},#{resumeEntity.mail},#{resumeEntity.job},#{resumeEntity.city},#{resumeEntity.money},#{resumeEntity.study_start_day},#{resumeEntity.study_stop_day},#{resumeEntity.school},#{resumeEntity.major},#{resumeEntity.degree},#{resumeEntity.school_descrip},#{resumeEntity.skill},#{resumeEntity.job_experience},#{resumeEntity.school_experience},#{resumeEntity.award},#{resumeEntity.interest},#{resumeEntity.evaluate})
+        </if>
+    </insert>
+    <update id="update">
+        update resume_info set name = #{resumeEntity.name},sex =#{resumeEntity.sex},nation = #{resumeEntity.nation},date = #{resumeEntity.date},face = #{resumeEntity.face},marry = #{resumeEntity.marry},home = #{resumeEntity.home},phone = #{resumeEntity.phone},mail = #{resumeEntity.mail},job = #{resumeEntity.job},city = #{resumeEntity.city},money = #{resumeEntity.money},study_start_day = #{resumeEntity.study_start_day},study_stop_day = #{resumeEntity.study_stop_day},school = #{resumeEntity.school},major = #{resumeEntity.major},degree = #{resumeEntity.degree},school_descrip = #{resumeEntity.school_descrip},skill = #{resumeEntity.skill},job_experience = #{resumeEntity.job_experience},school_experience = #{resumeEntity.school_experience},award = #{resumeEntity.award},interest = #{resumeEntity.interest},evaluate = #{resumeEntity.evaluate}
+        <where>
+            resume_id = #{resume_id}
+        </where>
+    </update>
+    <select id="getResumeEntityById" resultMap="resumeMap">
+        select * from resume_info
+        <where>
+            resume_id = #{resume_id}
+        </where>
+    </select>
+    <select id="getResumeIdByName" resultMap="resumeMap">
+        select * from resume_info
+        <where>
+            name = #{name}
+        </where>
+    </select>
+</mapper>
