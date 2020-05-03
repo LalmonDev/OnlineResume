@@ -1,12 +1,14 @@
 package com.lalmondev.online_resume.service;
 
 import com.lalmondev.online_resume.model.UserEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface UserService {
     public void insert(UserEntity userEntity);
     public void del(UserEntity userEntity);
+    public void update(String user_name,UserEntity userEntity);
 
     /**
      * 通过登录名得到用户信息
@@ -14,6 +16,13 @@ public interface UserService {
      * @return
      */
     public UserEntity getUserEntityByLoginName(String user_name);
+
+    //根据用户手机号，获取用户名
+    public UserEntity getUserNameByPhone(String user_phone);
+
+    //根据用户名，获取手机号
+    public UserEntity getPhoneByUserName(String user_name);
+
 
     /**
      * 获取user列表

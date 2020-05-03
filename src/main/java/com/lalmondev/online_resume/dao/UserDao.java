@@ -12,9 +12,16 @@ public interface UserDao {
 
     public void del(@Param("userEntity") UserEntity userEntity);
 
-    public void update(@Param("userEntity") UserEntity userEntity);
+    public void update(@Param("user_name")String user_name,@Param("userEntity") UserEntity userEntity);
 
     public void insert(@Param("userEntity") UserEntity userEntity);
+
+    //根据用户手机号，获取用户名
+    public UserEntity getUserNameByPhone(@Param("user_phone")String user_phone);
+
+    //根据用户名获取手机号
+    public UserEntity getPhoneByUserName(@Param("user_name")String user_name);
+
 
     /**
      * 通过登录名获取用户信息

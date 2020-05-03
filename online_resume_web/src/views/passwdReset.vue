@@ -4,16 +4,22 @@
             <Form ref="formLogin" :model="formLogin" :rules="ruleLogin">
                 <div class="wrap_conter">
                     <ul>
-                        <li><h2>密码找回</h2></li>
+                        <li><h2>你好, {{userName}}</h2></li>
                         <li>
                             <dl>
-                                <FormItem prop="phone" >
-                                    <Input name="phone" v-model="formLogin.phone" type="text" placeholder="输入注册手机号" >
-                                        <Icon type="ios-call" slot="prepend" ></Icon>
+                                <FormItem prop="password" >
+                                    <Input name="password" v-model="formLogin.password" type="password" placeholder="输入密码" >
+                                        <Icon type="ios-lock-outline" slot="prepend" ></Icon>
+                                    </Input>
+                                </FormItem>
+                                <FormItem prop="repassword" >
+                                    <Input name="repassword" v-model="formLogin.repassword" type="password" placeholder="再次输入密码" >
+                                        <Icon type="md-lock" slot="prepend" ></Icon>
                                     </Input>
                                 </FormItem>
                                 <FormItem style="margin-bottom: 60px;text-align: center">
-                                    <Button type="primary"  @click="check('formLogin')" style="width: 45%">校验</Button>
+                                    <Button type="primary"  @click="check('formLogin')" style="width: 45%">确认</Button>
+                                    <Button type="primary"  @click="reset()" style="width: 45%">重置</Button>
                                 </FormItem>
                             </dl>
                         </li>
@@ -25,14 +31,17 @@
 </template>
 <script>
     export default {
-      name: 'findPasswd',
+      name: 'passwdReset',
         data(){
             return {
+                userName: this.$route.query.user_name,
                 formLogin:{
-                    phone: ''
+                    password: '',
+                    repassword: ''
                 },
                 ruleLogin: {
-                        phone: [{ required: true, message: '请填写您注册时的手机号', trigger: 'blur' }]
+                        password: [{ required: true, message: '请填写密码', trigger: 'blur' }],
+                        repassword: [{ required: true, message: '请填写密码', trigger: 'blur' }]
                 }
             }
         },
@@ -40,25 +49,33 @@
             check(formLogin){
                 this.$refs[formLogin].validate((valid) => {
                     if(valid){
+                      if(this.formLogin.password == this.formLogin.repassword){
                         this.$axios
-                          .get('/findUserName',{
-                            params: {
-                              user_phone: this.formLogin.phone
-                            }
-                          })
+                          .post('/findPasswd', {user_name:this.userName,user_password: this.formLogin.password})
                           .then(response => {
-                            let userName = response.data.user_name;
-                            if(userName != null){
-                              this.$router.replace({path:'/passwdReset',query:{user_name:userName}})
+                            let code = response.data.code
+                            if(code == 200){
+                              this.$Message.info('修改成功，请登录');
+                              this.$router.replace({path:'/'})
                             }else{
-                              this.$Message.info('手机号校验错误，请重新输入！');
-                              this.formLogin.phone = null
+                              this.$Message.info('连接服务器失败，请重试！');
+                              this.formLogin.password = null;
+                              this.formLogin.repassword = null
                             }
                           })
                           .catch(failResponse => {
                           })
+                      }else{
+                        this.$Message.info('两次输入密码不一致，请重新输入！');
+                        this.formLogin.password = null;
+                        this.formLogin.repassword = null
+                      }
                     }
                  })
+            },
+            reset(){
+              this.formLogin.password = null;
+              this.formLogin.repassword = null
             }
         }
     };

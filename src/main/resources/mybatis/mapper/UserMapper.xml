@@ -39,6 +39,13 @@
 		</if>
 	</insert>
 
+	<update id="update">
+		update user_info set user_name = #{userEntity.user_name},user_password = #{userEntity.user_password},user_phone = #{userEntity.user_phone}
+		<where>
+			user_name = #{user_name}
+		</where>
+	</update>
+
 	<delete id="del">
 		delete from user_info
 		<where>
@@ -48,13 +55,6 @@
 			<if test="userEntity.user_phone != null and userEntity.user_phone != ''">and user_phone = #{userEntity.user_phone}</if>
 		</where>
 	</delete>
-
-<!--	<update id="update">-->
-<!--		update user_info set user_name = #{user_name},sex = #{sex},age = #{age}-->
-<!--		<where>-->
-<!--			id = #{id}-->
-<!--		</where>-->
-<!--	</update>-->
 
 	<select id="select">
 		select * from user_info
@@ -72,6 +72,21 @@
 			user_name = #{user_name}
 		</where>
 	</select>
+
+	<select id="getUserNameByPhone" resultMap="userMap">
+		select * from user_info
+		<where>
+			user_phone = #{user_phone}
+		</where>
+	</select>
+
+	<select id="getPhoneByUserName" resultMap="userMap">
+		select * from user_info
+		<where>
+			user_name = #{user_name}
+		</where>
+	</select>
+
 
 	<!-- 新建用户信息 -->
 	<insert id="insertUser">

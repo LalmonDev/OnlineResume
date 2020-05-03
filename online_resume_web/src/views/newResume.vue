@@ -1,6 +1,10 @@
 <template>
   <div id="index">
     <div class="wrap_conter">
+      <Spin size="large" fix v-if="spinShow">
+        <Icon type="ios-loading" size=40 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+      </Spin>
       <ul>
          <Divider>基本信息</Divider>
         <br>
@@ -157,7 +161,8 @@
         data () {
             return {
               userName: this.$route.query.user_name,
-              formatTime: '2019-03-10',
+              formatTime: '2020-05-10',
+              spinShow: false,
 
                 formValidate: {
                     name: '',
@@ -242,6 +247,7 @@
         },
         methods: {
             handleSubmit (name) {
+              this.spinShow = true;
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.$Message.success('Success!');
@@ -258,13 +264,11 @@
                           })
                           .catch(failResponse => {
                           })
-
-                        alert(this.userName)
                     } else {
-                        this.$Message.error('Fail!');
-                        alert(this.userName)
+                        this.$Message.error('Fail!')
                     }
                 })
+                this.spinShow = false;
             },
             handleReset (name) {
                 this.$refs[name].resetFields();
@@ -286,4 +290,7 @@
       line-height: 1;
       color: #ed3f14;
   }
+  .demo-spin-icon-load{
+          animation: ani-demo-spin 1s linear infinite;
+      }
 </style>

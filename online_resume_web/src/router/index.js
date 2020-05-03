@@ -9,6 +9,7 @@ import user_index from '@/views/user_index'
 import newResume from '@/views/newResume'
 import showResume from '@/views/showResume'
 import userInfo from '@/views/userInfo'
+import passwdReset from '@/views/passwdReset'
 
 import tmp from '@/views/tmp'
 
@@ -53,6 +54,11 @@ export default new Router({
       path: '/forgetpasswd',
       name: 'forgetpasswd',
       component: forgetpasswd
-    }
+    },
+    {
+      path: '/passwdReset',
+      name: 'passwdReset',
+      component: passwdReset
+    },
   ]
 })

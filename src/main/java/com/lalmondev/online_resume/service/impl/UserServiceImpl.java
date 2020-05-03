@@ -25,8 +25,23 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
+    public void update(String user_name,UserEntity userEntity) {
+        userDao.update(user_name,userEntity);
+    }
+
+    @Override
     public UserEntity getUserEntityByLoginName(String user_name) {
         return userDao.getUserEntityByLoginName(user_name);
+    }
+
+    @Override
+    public UserEntity getUserNameByPhone(String user_phone) {
+        return userDao.getUserNameByPhone(user_phone);
+    }
+
+    @Override
+    public UserEntity getPhoneByUserName(String user_name) {
+        return userDao.getPhoneByUserName(user_name);
     }
 
     @Override
