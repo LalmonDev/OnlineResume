@@ -217,6 +217,7 @@
                 //     ],
                 //     mail: [
                 //         { required: true, message: '邮箱不能为空', trigger: 'blur' },
+                //         { type:'email', message: '输入正确的邮箱格式', trigger: 'blur' }
                 //     ],
                 //     job: [
                 //         { required: true, message: '求职岗位不能为空', trigger: 'blur' }

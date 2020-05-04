@@ -23,6 +23,10 @@ public interface UserService {
     //根据用户名，获取手机号
     public UserEntity getPhoneByUserName(String user_name);
 
+    //根据用户名删除用户
+    public void deleteUserByName(String user_name);
+
+    public List<UserEntity> getAllUsers();
 
     /**
      * 获取user列表

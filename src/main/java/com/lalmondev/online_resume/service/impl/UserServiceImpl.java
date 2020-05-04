@@ -45,6 +45,16 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
+    public void deleteUserByName(String user_name) {
+        userDao.deleteUserByName(user_name);
+    }
+
+    @Override
+    public List<UserEntity> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+
+    @Override
     public List<UserEntity> userList(String user_name, int pageSize, int start) {
         return userDao.usersList(user_name,pageSize,start);
     }

@@ -8,6 +8,12 @@
 		<result column="user_phone" property="user_phone" />
 	</resultMap>
 
+	<select id="getAllUsers" resultMap="userMap">
+		<![CDATA[select * from user_info]]>
+		<![CDATA[ order by user_id asc ]]>
+	</select>
+
+
 	<!-- 获取user列表 -->
 	<select id="usersList" resultMap="userMap">
 	<![CDATA[select * from user_info]]>
@@ -17,9 +23,6 @@
 			</if>
 		</where>
 	    <![CDATA[ order by id desc ]]>
-		<if test="pageSize != null and start != null ">
-			limit #{start},#{pageSize}
-		</if>
 	</select>
 
 	<!-- 获取user列表的总量 -->
@@ -87,6 +90,12 @@
 		</where>
 	</select>
 
+	<delete id="deleteUserByName">
+		delete from user_info
+		<where>
+			user_name = #{user_name}
+		</where>
+	</delete>
 
 	<!-- 新建用户信息 -->
 	<insert id="insertUser">
@@ -95,31 +104,4 @@
 		(#{userEntity.user_name},#{userEntity.user_password},#{userEntity.user_phone})
 	</insert>
 
-<!--	&lt;!&ndash; 更新用户信息 &ndash;&gt;-->
-<!--	<update id="updateUser">-->
-<!--		update sys_user set-->
-<!--		name = #{userEntity.name},-->
-<!--		login_name =-->
-<!--		#{userEntity.loginName},-->
-<!--		password = #{userEntity.password},-->
-<!--		email =-->
-<!--		#{userEntity.email}-->
-<!--		<where>-->
-<!--			id = #{userEntity.id}-->
-<!--		</where>-->
-<!--	</update>-->
-<!--	&lt;!&ndash; 删除用户信息 &ndash;&gt;-->
-<!--	<delete id="deleteUsers">-->
-<!--		delete from sys_user-->
-<!--		<where>-->
-<!--			<if test="groupId !=null">-->
-<!--				id in-->
-<!--				<foreach collection="groupId" item="item" index="index"-->
-<!--					open="(" separator="," close=")">-->
-<!--					#{item}-->
-<!--				</foreach>-->
-<!--			</if>-->
-<!--		</where>-->
-<!--	</delete>-->
-<!--	-->
 </mapper>

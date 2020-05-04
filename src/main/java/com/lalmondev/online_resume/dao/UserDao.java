@@ -16,6 +16,9 @@ public interface UserDao {
 
     public void insert(@Param("userEntity") UserEntity userEntity);
 
+    //根据用户名删除用户
+    public void deleteUserByName(@Param("user_name")String user_name);
+
     //根据用户手机号，获取用户名
     public UserEntity getUserNameByPhone(@Param("user_phone")String user_phone);
 
@@ -31,8 +34,17 @@ public interface UserDao {
     /**
      * 获取user列表
      * @param user_name
-     * @param pageSize
-     * @param page
+     * @param null
+     * @return
+     */
+    public ArrayList<UserEntity> getAllUsers();
+
+
+    /**
+     * 获取user列表
+     * @param user_name
+     * @param null
+     * @param
      * @return
      */
     public ArrayList<UserEntity> usersList(@Param("user_name")String user_name,@Param("pageSize") int pageSize,@Param("start") int start);

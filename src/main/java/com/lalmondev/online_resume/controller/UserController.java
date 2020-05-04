@@ -4,15 +4,37 @@ package com.lalmondev.online_resume.controller;
 import com.lalmondev.online_resume.model.Result;
 import com.lalmondev.online_resume.model.UserEntity;
 import com.lalmondev.online_resume.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class UserController {
     @Resource(name = "userServiceImpl")
     private UserService userService;
+
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/getUsers",method= RequestMethod.GET)
+    @ResponseBody
+    public List<UserEntity> getAllUsers(){
+
+        List<UserEntity> userInfoList = new ArrayList<>(100);
+
+        try {
+            userInfoList = userService.getAllUsers();
+            System.out.println("获取用户列表成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("获取用户列表失败");
+            return null;
+        }
+
+        return userInfoList;
+    }
+
 
     /**
      * 根据用户名，获取用户信息
@@ -130,6 +152,26 @@ public class UserController {
         return new Result(200);
     }
 
+    /**
+     * 通过用户名删除用户
+     *
+     */
+    @CrossOrigin
+    @PostMapping("api/delete")
+    public Result deleteUserByName(@RequestBody UserEntity userEntity) {
+
+        String userName = userEntity.getUser_name();
+
+        try {
+            userService.deleteUserByName(userName);
+            System.out.println(userName + "删除成功");
+        }catch (Exception e){
+            System.out.println(userName + "删除失败");
+            return new Result(400);
+        }
+
+        return new Result(200);
+    }
 
 
 }

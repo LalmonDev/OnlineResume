@@ -10,6 +10,8 @@ import newResume from '@/views/newResume'
 import showResume from '@/views/showResume'
 import userInfo from '@/views/userInfo'
 import passwdReset from '@/views/passwdReset'
+import manage from '@/views/manage'
+import manageUser from '@/views/manageUser'
 
 import tmp from '@/views/tmp'
 
@@ -59,6 +61,18 @@ export default new Router({
       path: '/passwdReset',
       name: 'passwdReset',
       component: passwdReset
+    },
+    {
+      path: '/manage',
+      name: 'manage',
+      component: manage,
+      children:[
+        {
+          path: '/',
+          name: 'manageUser',
+          component: manageUser
+        },
+      ]
     },
   ]
 })
