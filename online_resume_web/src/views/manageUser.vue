@@ -5,7 +5,7 @@
             <ul>
                   <Row style="left: auto">
                     <Button type="primary" icon="plus-round" @click="openNewModal()">新建</Button>
-                    <Button type="success" icon="wrench" @click="openModifyModal()">修改</Button>
+                    <!-- <Button type="success" icon="wrench" @click="openModifyModal()">修改</Button> -->
                     <Button type="error" icon="trash-a" @click="del()">删除</Button>
                   </Row>
                     <br>
@@ -267,7 +267,9 @@
               alert(name)
               this.$axios
               .post('/delete',{user_name: name})
-              .then(function (response) {}
+              .then(function (response) {
+                this.getTable();
+              }
               .bind(this)).catch(function (error) {
                   alert(error);
               });
@@ -293,6 +295,8 @@
                     this.modifyModal = true;
                 }
             }
+
+
 
         }
     }

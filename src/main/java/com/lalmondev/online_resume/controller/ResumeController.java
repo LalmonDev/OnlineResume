@@ -59,4 +59,27 @@ public class ResumeController {
         return new Result(200);
     }
 
+
+    @CrossOrigin
+    @RequestMapping(value = "/api/getResume",method= RequestMethod.GET)
+    @ResponseBody
+    public ResumeEntity getResumeByName(@RequestParam("user_name") String user_name){
+        System.out.println("用户：" + user_name);
+
+        UREntity urEntity = urService.getResumeIdByUserName(user_name);
+
+        if ( urEntity == null){
+            System.out.println("该用户没有简历信息");
+            return null;
+        }
+
+        int resumeID = urEntity.getResumeid();
+        System.out.println("简历ID: " + resumeID);
+
+        ResumeEntity resumeEntity  = resumeService.getResumeEntityById(resumeID);
+        System.out.println("简历信息: " + resumeEntity);
+
+        return resumeEntity;
+    }
+
 }

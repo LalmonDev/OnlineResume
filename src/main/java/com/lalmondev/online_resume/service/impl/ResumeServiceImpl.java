@@ -23,8 +23,8 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public void getResumeEntityById(int resume_id) {
-        resumeDao.getResumeEntityById(resume_id);
+    public ResumeEntity getResumeEntityById(int resume_id) {
+        return resumeDao.getResumeEntityById(resume_id);
     }
 
     @Override

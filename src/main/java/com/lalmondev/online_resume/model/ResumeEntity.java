@@ -13,7 +13,7 @@ public class ResumeEntity {
     private String mail;
     private String job;
     private String city;
-    private int money;
+    private Long money;
     private String study_start_day;
     private String study_stop_day;
     private String school;
@@ -123,11 +123,11 @@ public class ResumeEntity {
         this.city = city;
     }
 
-    public int getMoney() {
+    public Long getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(Long money) {
         this.money = money;
     }
 

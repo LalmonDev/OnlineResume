@@ -246,7 +246,29 @@
                 // }
             }
         },
+
+        mounted(){
+        	/*页面初始化调用方法*/
+            this.getResumeInfo();
+        },
+
         methods: {
+            getResumeInfo(){
+              this.$axios
+              .get('/getResume',{ 
+                params: {
+                  user_name: this.userName
+                  }
+              })
+              .then(function (response) {
+                if(response.data != null){
+                  this.formValidate = response.data
+                }
+              }.bind(this)).catch(function (error) {
+                alert(error);
+              });
+            },
+
             handleSubmit (name) {
               this.spinShow = true;
                 this.$refs[name].validate((valid) => {
