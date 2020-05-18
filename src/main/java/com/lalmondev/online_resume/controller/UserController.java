@@ -4,6 +4,7 @@ package com.lalmondev.online_resume.controller;
 import com.lalmondev.online_resume.model.Result;
 import com.lalmondev.online_resume.model.UserEntity;
 import com.lalmondev.online_resume.service.UserService;
+import com.lalmondev.online_resume.util.Encryption;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,6 +15,8 @@ import java.util.List;
 public class UserController {
     @Resource(name = "userServiceImpl")
     private UserService userService;
+
+    private Encryption encryption;
 
 
     @CrossOrigin
@@ -93,7 +96,7 @@ public class UserController {
             return new Result(400);
         }
 
-        if ((DBuserEntity.getUser_name().equals(userEntity.getUser_name())) && DBuserEntity.getUser_password().equals(userEntity.getUser_password())){
+        if ((DBuserEntity.getUser_name().equals(userEntity.getUser_name())) && DBuserEntity.getUser_password().equals(encryption.MD5Encryption(userEntity.getUser_password()))){
             System.out.println("登录成功");
             return new Result(200);
         }else {
@@ -113,6 +116,7 @@ public class UserController {
                 System.out.println("用户已存在");
                 return new Result(201);
             }
+            userEntity.setUser_password(encryption.MD5Encryption(userEntity.getUser_password()));
             userService.insert(userEntity);
             System.out.println("注册成功");
             return new Result(200);
@@ -139,7 +143,7 @@ public class UserController {
         UserEntity newUserEntity = new UserEntity();
         newUserEntity.setUser_name(user_name);
         newUserEntity.setUser_phone(userEntity.getUser_phone());
-        newUserEntity.setUser_password(user_password);
+        newUserEntity.setUser_password(encryption.MD5Encryption(user_password));
 
         try {
             userService.update(user_name,newUserEntity);
