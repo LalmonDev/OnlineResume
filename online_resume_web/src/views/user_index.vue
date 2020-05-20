@@ -5,8 +5,8 @@
                   <Row type="flex" style="position:absolute;left:0;top:0;width:100%;">
                     <Col span="4" class="layout-menu-left">
                     <div class="layout-header">
-                      <Dropdown trigger="click" style="margin-right: 20px" @on-select="logout" >
-                        <span><label><strong>欢迎：user_name</strong></label></span>
+                      <Dropdown trigger="click" style="margin-right: 10px" @on-click="logout()" >
+                        <span><label><strong>欢迎,{{user_name}}</strong></label></span>
                         <DropdownMenu class="dropdown-menu" slot="list">
                           <DropdownItem>注销</DropdownItem>
                         </DropdownMenu>
@@ -59,8 +59,7 @@
           this.$router.push({path:name,query:{user_name:this.user_name}})
         },
         logout(){
-          this.alert("注销")
-          this.$router.push({path:'/login'})
+          this.$router.replace({path:'/'})
         },
         }
     }
