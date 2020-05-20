@@ -16,7 +16,7 @@ public class UserController {
     @Resource(name = "userServiceImpl")
     private UserService userService;
 
-    private Encryption encryption;
+    private Encryption encryption = new Encryption();
 
 
     @CrossOrigin
@@ -116,8 +116,10 @@ public class UserController {
                 System.out.println("用户已存在");
                 return new Result(201);
             }
+
             userEntity.setUser_password(encryption.MD5Encryption(userEntity.getUser_password()));
             userService.insert(userEntity);
+
             System.out.println("注册成功");
             return new Result(200);
         }else {
