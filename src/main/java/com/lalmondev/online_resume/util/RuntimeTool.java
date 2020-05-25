@@ -3,7 +3,7 @@ package com.lalmondev.online_resume.util;
 import java.io.*;
 
 public class RuntimeTool {
-    public static Boolean creatResumeByFilePath(String command,String filePath){
+    public Boolean creatResumeByFilePath(String command,String filePath){
         File dirPath = new File(filePath);
         String[] cmd={"cmd","/C",command};
         Process process;
