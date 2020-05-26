@@ -34,7 +34,7 @@ public class ResumeController {
         UREntity urEntity = new UREntity();
         int resumeId ;
 
-        System.out.println("请求insert的信息：" + resumeEntity.toString());
+        System.out.println(user_name + " 请求insert的信息：" + resumeEntity.toString());
 
         if (urService.getResumeIdByUserName(user_name) != null)
         {

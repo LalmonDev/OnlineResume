@@ -1,14 +1,18 @@
 package com.lalmondev.online_resume.util;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class RuntimeTool {
-    public Boolean creatResumeByFilePath(String command,String filePath){
+    public Boolean CMDTool(String command,String filePath){
         File dirPath = new File(filePath);
         String[] cmd={"cmd","/C",command};
-        Process process;
+
+        System.out.println("命令："+command);
+        System.out.println("命令执行目录："+filePath);
 
         try {
+            Process process;
             process = Runtime.getRuntime().exec(cmd,null,dirPath);
             //取得命令结果的输出流
             InputStream inputStream = process.getInputStream();
@@ -26,11 +30,14 @@ public class RuntimeTool {
             bufferedReader.close();
             streamReader.close();
             inputStream.close();
+
         }catch (IOException e)
         {
             e.printStackTrace();
             return false;
         }
+
+        System.out.println("执行 " + command +" 完毕！");
 
         return true;
     }

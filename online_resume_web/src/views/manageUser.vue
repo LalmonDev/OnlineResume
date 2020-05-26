@@ -264,7 +264,6 @@
 
             /*根据用户名删除用户*/
             delUser(name){
-              alert(name)
               this.$axios
               .post('/delete',{user_name: name})
               .then(function (response) {

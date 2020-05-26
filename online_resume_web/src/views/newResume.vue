@@ -255,7 +255,7 @@
         methods: {
             getResumeInfo(){
               this.$axios
-              .get('/getResume',{ 
+              .get('/getResume',{
                 params: {
                   user_name: this.userName
                   }
@@ -273,11 +273,10 @@
               this.spinShow = true;
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        this.$Message.success('Success!');
-
                         this.$axios
                           .post('/newResume/'+ this.userName, this.formValidate)
                           .then(response => {
+                            this.$Message.success('Success!');
                             let code = response.data.code
                             if(code == 200){
                               this.$router.replace({path:'/showResume',query:{user_name:this.userName}})
