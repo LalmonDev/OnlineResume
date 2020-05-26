@@ -117,7 +117,7 @@
     .index .ivu-row-flex {
         height: 100%;
     }
-    #index_pc_bj{width:100%;height:100%;background-size:cover;overflow: hidden;background-position:center center;box-shadow: 0 0px 3px rgba(0,0,0,.5);text-align: center;}
+    #index_pc_bj{width:100%;height:100%;background-image: url(../assets/register.jpg);background-size:cover;overflow: hidden;background-position:center center;box-shadow: 0 0px 3px rgba(0,0,0,.5);text-align: center;}
     .wrap_conter ul{position:relative;width:300px;/*border:5px solid rgba(255,255,255,0.3);*/border-radius:5px;box-shadow: 0 0px 5px rgba(0,0,0,.2); margin-top: 10%; margin-left: 40%; text-align:center;}
     .wrap_conter li{text-align:center;color:#fff;font-size:12px;line-height:30px; padding:0 25px 5px 25px;width: 100%;}
     .wrap_conter li h2{color:#aaaaff;font-size:20px;line-height:40px; display:block; text-align:center; padding:20px 0 5px 0}

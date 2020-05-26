@@ -2,13 +2,18 @@
     <div class="layout">
         <Layout>
             <Header :style="{ width: '100%'}">
-                <Menu mode="horizontal" theme="dark" >
-                    <div class="layout-logo">
-                      <MenuItem name="logo">
-                          <span>欢迎：<label>管理员</label></span>
-                      </MenuItem>
-                    </div>
-                </Menu>
+               <Row type="flex" style="position:absolute;left:0;top:0;width:100%;">
+                 <Col span="4" class="layout-menu-left">
+                <div class="layout-header">
+                  <Dropdown trigger="click" style="margin-right: 10px" @on-click="logout()" >
+                    <span><label><strong>欢迎：管理员</strong></label></span>
+                    <DropdownMenu class="dropdown-menu" slot="list">
+                      <DropdownItem>注销</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </div>
+                </Col>
+                </Row>
             </Header>
            <Content :style="{margin: '20px 20px 0', background: '#fff', minHeight: '500px'}">
             <div>
@@ -28,6 +33,9 @@
       },
 
       methods:{
+          logout(){
+            this.$router.replace({path:'/'})
+          },
 
         }
     }
@@ -57,5 +65,13 @@
     }
     .layout-footer-center{
         text-align: center;
+    }
+    .layout-header strong{
+        color: #00e3e3;
+        font-size:20px;
+    }
+    .dropdown-menu{
+        text-align: center;
+        /*box-shadow: 0 1px 6px #00BCD4;*/
     }
 </style>
