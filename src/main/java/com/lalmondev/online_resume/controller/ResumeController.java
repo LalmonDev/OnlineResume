@@ -65,7 +65,11 @@ public class ResumeController {
         return new Result(200);
     }
 
-
+    /**
+     * 根据用户名，获取简历信息
+     * @param user_name
+     * @return ResumeEntity
+     */
     @CrossOrigin
     @RequestMapping(value = "/api/getResume",method= RequestMethod.GET)
     @ResponseBody
@@ -86,6 +90,19 @@ public class ResumeController {
         System.out.println("简历信息: " + resumeEntity);
 
         return resumeEntity;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "api/rebuildResume",method= RequestMethod.GET)
+    @ResponseBody
+    public Result rebuildResume(@RequestParam("user_name") String user_name,@RequestParam("style")String style){
+        ResumeEntity resumeEntity = getResumeByName(user_name);
+
+        if (!buildResumeTool.BuildResume(user_name,style,resumeEntity)){
+            return new Result(400);
+        }
+
+        return new Result(200);
     }
 
 }
