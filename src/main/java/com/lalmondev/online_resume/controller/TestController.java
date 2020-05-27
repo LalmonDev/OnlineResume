@@ -29,7 +29,7 @@ public class TestController {
 
         String styleName = styleStr + ".ftl";
         String targetFileName = styleStr + ".tex";
-        String targetFilePath = "G:/FinalDesign/online_resume_web/static/resume/";
+        String targetFilePath = "G:/FinalDesign/online_resume_web/static/pdf/resumes/";
         String templateFilePath = "G:/FinalDesign/src/main/resources/templates/";
         String cmd = "mkdir "+userName;
         RuntimeTool runtime = new RuntimeTool();

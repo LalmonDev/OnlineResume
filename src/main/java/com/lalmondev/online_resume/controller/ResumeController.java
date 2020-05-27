@@ -5,6 +5,7 @@ import com.lalmondev.online_resume.model.ResumeEntity;
 import com.lalmondev.online_resume.model.UREntity;
 import com.lalmondev.online_resume.service.ResumeService;
 import com.lalmondev.online_resume.service.URService;
+import com.lalmondev.online_resume.util.BuildResumeTool;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,6 +19,8 @@ public class ResumeController {
     @Resource(name = "URServiceImpl")
     private URService urService;
 
+    BuildResumeTool buildResumeTool = new BuildResumeTool();
+
     /**
      * 新建简历
      * 先查询数据库 ur_info，是否存在对应用户名下的简历id
@@ -29,11 +32,10 @@ public class ResumeController {
      */
     @CrossOrigin
     @PostMapping("api/newResume/{user_name}")
-    public Result newResume(@PathVariable String user_name,@RequestBody ResumeEntity resumeEntity){
+    public Result newResume(@PathVariable String user_name,@RequestBody ResumeEntity resumeEntity) throws InterruptedException {
 
         UREntity urEntity = new UREntity();
         int resumeId ;
-
         System.out.println(user_name + " 请求insert的信息：" + resumeEntity.toString());
 
         if (urService.getResumeIdByUserName(user_name) != null)
@@ -54,6 +56,10 @@ public class ResumeController {
             urService.insertUREntity(urEntity);
 
             System.out.println(user_name + "插入成功");
+        }
+
+        if (!buildResumeTool.BuildResume(user_name,"style1",resumeEntity)){
+            return new Result(400);
         }
 
         return new Result(200);

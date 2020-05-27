@@ -7,6 +7,7 @@ import com.lalmondev.online_resume.service.ResumeService;
 import com.lalmondev.online_resume.service.URService;
 import com.lalmondev.online_resume.service.UserService;
 import com.lalmondev.online_resume.util.Encryption;
+import com.lalmondev.online_resume.util.RuntimeTool;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,6 +26,9 @@ public class UserController {
     private URService urService;
 
     private Encryption encryption = new Encryption();
+
+    RuntimeTool runtime = new RuntimeTool();
+    private String BuildDirPath = "G:/FinalDesign/online_resume_web/static/pdf/resumes/";
 
 
     @CrossOrigin
@@ -128,6 +132,9 @@ public class UserController {
             userEntity.setUser_password(encryption.MD5Encryption(userEntity.getUser_password()));
             userService.insert(userEntity);
 
+            String command = "mkdir "+ userEntity.getUser_name();
+            runtime.CMDTool(command,BuildDirPath);
+
             System.out.println("注册成功");
             return new Result(200);
         }else {
@@ -186,6 +193,9 @@ public class UserController {
             }
 
             userService.deleteUserByName(userName);
+            String command = "rmdir /s/q "+ userEntity.getUser_name();
+            runtime.CMDTool(command,BuildDirPath);
+
             System.out.println(userName + "删除成功");
         }catch (Exception e){
             System.out.println(userName + "删除失败");

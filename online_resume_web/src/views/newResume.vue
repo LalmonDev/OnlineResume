@@ -1,10 +1,11 @@
 <template>
   <div id="index">
     <div class="wrap_conter">
-      <Spin size="large" fix v-if="spinShow">
-        <Icon type="ios-loading" size=40 class="demo-spin-icon-load"></Icon>
-        <div>Loading</div>
-      </Spin>
+      <div class="demo-spin-col">
+        <Spin size="large" fix v-if="spinShow">
+          <Icon type="ios-loading" size=40 class="demo-spin-icon-load"></Icon>
+          <div>Loading</div>
+        </Spin>
       <ul>
          <Divider>基本信息</Divider>
         <br>
@@ -155,6 +156,7 @@
       </ul>
     </div>
     </div>
+    </div>
 </template>
 <script>
     export default {
@@ -162,7 +164,6 @@
             return {
               userName: this.$route.query.user_name,
               formatTime: '2020-05-10',
-              spinShow: false,
 
                 formValidate: {
                     name: '',
@@ -270,7 +271,7 @@
             },
 
             handleSubmit (name) {
-              this.spinShow = true;
+              this.$Spin.show();
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                       var data = {
@@ -305,25 +306,25 @@
                           .post('/newResume/'+ this.userName, data)
                           .then(response => {
                             this.$Message.success('Success!');
+                            this.$Spin.hide();
                             let code = response.data.code
                             if(code == 200){
                               this.$router.replace({path:'/showResume',query:{user_name:this.userName}})
                             }else if(code == 400){
-                              alert("return 400")
+                              this.$Message.error('Fail!')
                             }
                           })
                           .catch(failResponse => {
                           })
                     } else {
-                        this.$Message.error('Fail!')
+                      this.$Spin.hide();
+                      this.$Message.error('Fail!')
                     }
                 })
-                this.spinShow = false;
             },
             handleReset (name) {
                 this.$refs[name].resetFields();
             },
-
         }
     }
 </script>
@@ -343,4 +344,9 @@
   .demo-spin-icon-load{
           animation: ani-demo-spin 1s linear infinite;
       }
+  .demo-spin-col{
+    height: 100px;
+    position: relative;
+    border: 1px solid #eee;
+  }
 </style>
