@@ -8,37 +8,71 @@ public class RuntimeTool {
         File dirPath = new File(filePath);
         String[] cmd={"cmd","/C",command};
 
-        System.out.println("命令："+command);
+        System.out.println("CMD命令："+command);
         System.out.println("命令执行目录："+filePath);
 
         try {
             Process process;
             process = Runtime.getRuntime().exec(cmd,null,dirPath);
-            //取得命令结果的输出流
-            InputStream inputStream = process.getInputStream();
-            //用一个读输出流类去读
-            InputStreamReader streamReader = new InputStreamReader(inputStream);
-            //用缓冲器读行
-            BufferedReader bufferedReader = new BufferedReader(streamReader);
-            String line = null;
-            //直到读完为止
-            while((line = bufferedReader.readLine()) != null)
-            {
-                System.out.println(line);
-            }
-            //关闭相应进程
-            bufferedReader.close();
-            streamReader.close();
-            inputStream.close();
 
-        }catch (IOException e)
+            //获取进程输入流
+            final InputStream inputStream = process.getInputStream();
+            //获取进程错误流
+            final InputStream errorStream = process.getErrorStream();
+
+            //启动两个线程，一个线程负责读标准输出流，另一个负责读标准错误流
+            new Thread() {
+                public void run() {
+                    BufferedReader br1 = new BufferedReader(new InputStreamReader(inputStream));
+                    try {
+                        String line1 = null;
+                        while ((line1 = br1.readLine()) != null) {
+                            if (line1 != null){}
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    finally{
+                        try {
+                            inputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }.start();
+
+            new Thread() {
+                public void  run() {
+                    BufferedReader br2 = new  BufferedReader(new  InputStreamReader(errorStream));
+                    try {
+                        String line2 = null ;
+                        while ((line2 = br2.readLine()) !=  null ) {
+                            if (line2 != null){}
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    finally{
+                        try {
+                            errorStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }.start();
+
+            int exitVal = process.waitFor();
+            System.out.println("Process exitValue: " + exitVal);
+
+        }catch (IOException | InterruptedException e)
         {
             e.printStackTrace();
             return false;
         }
 
         System.out.println("执行 " + command +" 完毕！");
-
         return true;
     }
 }
