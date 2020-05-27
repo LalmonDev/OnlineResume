@@ -7,6 +7,8 @@ public interface ResumeService {
 
     public void update(int resume_id,ResumeEntity resumeEntity);
 
+    public void delete(int resume_id);
+
     public ResumeEntity getResumeEntityById(int resume_id);
 
     public ResumeEntity getResumeIdByName(String name);

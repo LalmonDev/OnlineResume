@@ -23,6 +23,11 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
+    public void delete(int resume_id) {
+        resumeDao.delete(resume_id);
+    }
+
+    @Override
     public ResumeEntity getResumeEntityById(int resume_id) {
         return resumeDao.getResumeEntityById(resume_id);
     }

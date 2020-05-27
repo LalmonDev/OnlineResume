@@ -9,6 +9,8 @@ public interface ResumeDao {
 
     public void update(@Param("resume_id")int resume_id ,@Param("resumeEntity") ResumeEntity resumeEntity);
 
+    public void delete(@Param("resume_id")int resume_id);
+
     public ResumeEntity getResumeEntityById(@Param("resume_id") int resume_id);
 
     public ResumeEntity getResumeIdByName(@Param("name") String name);

@@ -273,8 +273,36 @@
               this.spinShow = true;
                 this.$refs[name].validate((valid) => {
                     if (valid) {
+                      var data = {
+                        'name': this.formValidate.name,
+                        'sex': this.formValidate.sex,
+                        'nation': this.formValidate.nation,
+                        'date': this.formValidate.date,
+                        'face': this.formValidate.face,
+                        'marry': this.formValidate.marry,
+                        'home': this.formValidate.home,
+                        'phone': this.formValidate.phone,
+                        'mail': this.formValidate.mail,
+                        'job': this.formValidate.job,
+                        'city': this.formValidate.city,
+                        'money': this.formValidate.money,
+                        'study_start_day': this.formValidate.study_start_day,
+                        'study_stop_day': this.formValidate.study_stop_day,
+                        'school': this.formValidate.school,
+                        'major': this.formValidate.major,
+                        'degree': this.formValidate.degree,
+                        'school_descrip': this.formValidate.school_descrip,
+                        'skill': this.formValidate.skill,
+                        'job_experience': this.formValidate.job_experience,
+                        'school_experience': this.formValidate.school_experience,
+                        'award': this.formValidate.award,
+                        'interest': this.formValidate.interest,
+                        'evaluate': this.formValidate.evaluate
+                      };
+
                         this.$axios
-                          .post('/newResume/'+ this.userName, this.formValidate)
+                          // .post('/newResume/'+ this.userName, this.formValidate)
+                          .post('/newResume/'+ this.userName, data)
                           .then(response => {
                             this.$Message.success('Success!');
                             let code = response.data.code

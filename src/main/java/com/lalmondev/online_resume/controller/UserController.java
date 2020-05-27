@@ -3,6 +3,8 @@ package com.lalmondev.online_resume.controller;
 
 import com.lalmondev.online_resume.model.Result;
 import com.lalmondev.online_resume.model.UserEntity;
+import com.lalmondev.online_resume.service.ResumeService;
+import com.lalmondev.online_resume.service.URService;
 import com.lalmondev.online_resume.service.UserService;
 import com.lalmondev.online_resume.util.Encryption;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,12 @@ import java.util.List;
 public class UserController {
     @Resource(name = "userServiceImpl")
     private UserService userService;
+
+    @Resource(name = "resumeServiceImpl")
+    private ResumeService resumeService;
+
+    @Resource(name = "URServiceImpl")
+    private URService urService;
 
     private Encryption encryption = new Encryption();
 
@@ -167,8 +175,16 @@ public class UserController {
     public Result deleteUserByName(@RequestBody UserEntity userEntity) {
 
         String userName = userEntity.getUser_name();
+        int resumeId;
 
         try {
+            if (urService.getResumeIdByUserName(userName) != null)
+            {
+                System.out.println(userName + "存在简历信息");
+                resumeId = urService.getResumeIdByUserName(userName).getResumeid();
+                resumeService.delete(resumeId);
+            }
+
             userService.deleteUserByName(userName);
             System.out.println(userName + "删除成功");
         }catch (Exception e){

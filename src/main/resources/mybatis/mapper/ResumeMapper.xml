@@ -42,6 +42,12 @@
             resume_id = #{resume_id}
         </where>
     </update>
+    <delete id="delete" >
+        delete from resume_info
+        <where>
+            resume_id = #{resume_id}
+        </where>
+    </delete>
     <select id="getResumeEntityById" resultMap="resumeMap">
         select * from resume_info
         <where>
