@@ -1,17 +1,7 @@
 <template>
-  <div>
-    <Row type="flex" style="position:absolute;left:0;width:100%;">
-      <Col span="4" class="layout-menu-left">
-        <Button style="width: 45%" type="primary" @click="style1()">模板1</Button>
-      </Col>
-      <Col span="4">
-        <Button style="width: 45%" type="primary" @click="style2()">模板2</Button>
-      </Col>
-    </Row>
     <div>
       <iframe :src="url" id="iframe" style="width: 100%;" @load="sureHeight"></iframe>
     </div>
-  </div>
 </template>
 
 <script>
@@ -20,6 +10,7 @@ export default {
   data () {
     return {
       userName: this.$route.query.user_name,
+      style: this.$route.query.style,
       url: '',
       file_path: ''
     }
@@ -27,7 +18,7 @@ export default {
 
   // 模块创建时执行
   created () {
-    this.file_path = 'online_resume_web/static/pdf/resumes/' + this.userName
+    this.file_path = '/static/pdf/web/resumes/' + this.userName+'/' + this.style +'/' + this.userName+'.pdf'
   },
 
   // 模块渲染时执行
@@ -48,47 +39,8 @@ export default {
       // element.style.height = window.screen.height + 'px'
       element.style.height = '1000px'
     },
-
-    style1(){
-      this.$Spin.show();
-      this.$axios
-        .get('/rebuildResume',{
-          params: {
-            user_name: this.userName,
-            style: 'style1'
-          }
-        })
-        .then(function (response) {
-          this.$Spin.hide();
-          let code = response.data.code
-          if(code != 200){
-            this.$Message.error('Fail!')
-          }
-        }.bind(this)).catch(function (error) {
-        alert(error);
-      });
-    },
-
-    style2(){
-      this.$Spin.show();
-      this.$axios
-        .get('/rebuildResume',{
-          params: {
-            user_name: this.userName,
-            style: 'style2'
-          }
-        })
-        .then(function (response) {
-          this.$Spin.hide();
-          let code = response.data.code
-          if(code != 200){
-            this.$Message.error('Fail!')
-          }
-        }.bind(this)).catch(function (error) {
-        alert(error);
-      });
-    },
   }
+
 }
 </script>
 

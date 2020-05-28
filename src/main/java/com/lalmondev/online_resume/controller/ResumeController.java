@@ -62,6 +62,9 @@ public class ResumeController {
             return new Result(400);
         }
 
+        // 需要等待 1s，否则PDF.js读取文件会损坏
+        Thread.currentThread().sleep(2000);
+
         return new Result(200);
     }
 

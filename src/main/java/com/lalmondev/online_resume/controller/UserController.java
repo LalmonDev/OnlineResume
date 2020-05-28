@@ -28,7 +28,7 @@ public class UserController {
     private Encryption encryption = new Encryption();
 
     RuntimeTool runtime = new RuntimeTool();
-    private String BuildDirPath = "G:/FinalDesign/online_resume_web/static/pdf/resumes/";
+    private String BuildDirPath = "G:\\FinalDesign\\online_resume_web\\static\\pdf\\web\\resumes\\";
 
 
     @CrossOrigin
@@ -132,8 +132,13 @@ public class UserController {
             userEntity.setUser_password(encryption.MD5Encryption(userEntity.getUser_password()));
             userService.insert(userEntity);
 
-            String command = "mkdir "+ userEntity.getUser_name();
-            runtime.CMDTool(command,BuildDirPath);
+            String buildDirCMD = "mkdir "+ userEntity.getUser_name();
+            String CopySourcePath = "G:\\FinalDesign\\src\\main\\resources\\commonStyles";
+            String CopyDestPath = BuildDirPath + userEntity.getUser_name();
+            String copyStyleCMD = "xcopy " + CopySourcePath + " " + CopyDestPath + " /s/e/y";
+
+            runtime.CMDTool(buildDirCMD,BuildDirPath);
+            runtime.CMDTool(copyStyleCMD,CopyDestPath);
 
             System.out.println("注册成功");
             return new Result(200);

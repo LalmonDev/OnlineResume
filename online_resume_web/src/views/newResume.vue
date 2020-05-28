@@ -146,7 +146,19 @@
              <Input v-model="formValidate.evaluate" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
            </FormItem>
 
+        <Divider>简历模板选择</Divider><br>
+        <RadioGroup v-model="style">
+          <Row>
+            <Col span="10">
+              <Radio label="style1" border>模板1</Radio>
+            </Col>
+            <Col span="10" offset="4">
+              <Radio label="style2" border>模板2</Radio>
+            </Col>
+          </Row>
+        </RadioGroup><br>
 
+        <Divider></Divider><br>
           <FormItem>
               <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
               <Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
@@ -164,6 +176,7 @@
             return {
               userName: this.$route.query.user_name,
               formatTime: '2020-05-10',
+              style: 'style1',
 
                 formValidate: {
                     name: '',
@@ -309,7 +322,7 @@
                             this.$Spin.hide();
                             let code = response.data.code
                             if(code == 200){
-                              this.$router.replace({path:'/showResume',query:{user_name:this.userName}})
+                              this.$router.replace({path:'/showResume',query:{user_name:this.userName,style:this.style}})
                             }else if(code == 400){
                               this.$Message.error('Fail!')
                             }
