@@ -21,8 +21,8 @@ public class BuildResumeTool {
     public Boolean BuildResume(String user_name,String style,ResumeEntity resumeEntity){
         String styleName = style + ".ftl";
         String targetTexName = user_name + ".tex";
-        String userDirPath = "G:/FinalDesign/online_resume_web/static/pdf/web/resumes/" + user_name + "/" + style;
-        String templatePath = "G:/FinalDesign/src/main/resources/templates/";
+        String userDirPath = "D:/FinalDesign/OnlineResume/online_resume_web/static/pdf/web/resumes/" + user_name + "/" + style;
+        String templatePath = "D:/FinalDesign/OnlineResume/src/main/resources/templates/";
 
         RuntimeTool runtime = new RuntimeTool();
         ResumeEntity MapEntity = resumeEntity;

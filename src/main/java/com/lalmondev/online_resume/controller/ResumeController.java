@@ -108,4 +108,14 @@ public class ResumeController {
         return new Result(200);
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "api/getResumeStyle",method= RequestMethod.GET)
+    @ResponseBody
+    public UREntity getResumeStyle(@RequestParam("user_name") String user_name){
+        UREntity urEntity ;
+        urEntity = urService.getResumeIdByUserName(user_name);
+        System.out.println("返回简历style："+urEntity.getStyle());
+        return urEntity;
+    }
+
 }

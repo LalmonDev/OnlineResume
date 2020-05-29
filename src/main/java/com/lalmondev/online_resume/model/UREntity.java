@@ -4,6 +4,15 @@ public class UREntity {
     private int tableid;
     private String username;
     private int resumeid;
+    private String style;
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
 
     public int getTableid() {
         return tableid;
@@ -35,6 +44,7 @@ public class UREntity {
                 "tableid=" + tableid +
                 ", username='" + username + '\'' +
                 ", resumeid=" + resumeid +
+                ", style='" + style + '\'' +
                 '}';
     }
 }

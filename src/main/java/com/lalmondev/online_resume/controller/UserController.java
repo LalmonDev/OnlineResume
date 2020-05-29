@@ -28,7 +28,7 @@ public class UserController {
     private Encryption encryption = new Encryption();
 
     RuntimeTool runtime = new RuntimeTool();
-    private String BuildDirPath = "G:\\FinalDesign\\online_resume_web\\static\\pdf\\web\\resumes\\";
+    private String BuildDirPath = "D:\\FinalDesign\\OnlineResume\\online_resume_web\\static\\pdf\\web\\resumes\\";
 
 
     @CrossOrigin
@@ -133,7 +133,7 @@ public class UserController {
             userService.insert(userEntity);
 
             String buildDirCMD = "mkdir "+ userEntity.getUser_name();
-            String CopySourcePath = "G:\\FinalDesign\\src\\main\\resources\\commonStyles";
+            String CopySourcePath = "D:\\FinalDesign\\OnlineResume\\src\\main\\resources\\commonStyles";
             String CopyDestPath = BuildDirPath + userEntity.getUser_name();
             String copyStyleCMD = "xcopy " + CopySourcePath + " " + CopyDestPath + " /s/e/y";
 

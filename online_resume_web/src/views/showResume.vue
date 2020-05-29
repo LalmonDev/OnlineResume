@@ -16,19 +16,30 @@ export default {
     }
   },
 
-  // 模块创建时执行
-  created () {
-    this.file_path = '/static/pdf/web/resumes/' + this.userName+'/' + this.style +'/' + this.userName+'.pdf'
-  },
 
   // 模块渲染时执行
   mounted () {
-    // 本地请求文件
-    let finalFilePath = encodeURIComponent(this.file_path)
-    // 跨域请求文件，需走后台代理
-    // let filePath2 = encodeURIComponent('/pdf/showPdf?pdfUrl=http://test.hccb.cc/corporBankWXTest/static/123.pdf')
-    // pdf文档展示的页面
-    this.url = '/static/pdf/web/viewer.html?file=' + finalFilePath
+
+    this.$axios
+    .get('/getResumeStyle',{
+      params:{
+        user_name: this.userName
+      }
+    })
+    .then(function (response) {
+      if(response.data != null){
+        this.style = response.data.style
+        this.file_path = '/static/pdf/web/resumes/' + this.userName+'/' + this.style +'/' + this.userName+'.pdf'
+        // 本地请求文件
+        let finalFilePath = encodeURIComponent(this.file_path)
+        // 跨域请求文件，需走后台代理
+        // let filePath2 = encodeURIComponent('/pdf/showPdf?pdfUrl=http://test.hccb.cc/corporBankWXTest/static/123.pdf')
+        // pdf文档展示的页面
+        this.url = '/static/pdf/web/viewer.html?file=' + finalFilePath
+        }
+    }.bind(this)).catch(function (error) {
+      alert(error);
+    });
   },
 
   // 定义模块测试方法

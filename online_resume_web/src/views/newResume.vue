@@ -313,7 +313,6 @@
                         'interest': this.formValidate.interest,
                         'evaluate': this.formValidate.evaluate
                       };
-
                         this.$axios
                           // .post('/newResume/'+ this.userName, this.formValidate)
                           .post('/newResume/'+ this.userName, data)

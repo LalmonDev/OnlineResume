@@ -5,6 +5,7 @@
         <id column="tableid" property="tableid" />
         <result column="username" property="username" />
         <result column="resumeid" property="resumeid" />
+        <result column="style" property="style" />
     </resultMap>
     <insert id="insertUREntity">
         <if test="urEntity != null">
@@ -15,7 +16,7 @@
         </if>
     </insert>
     <select id="getResumeIdByUserName" resultMap="urMap">
-        select resumeid from ur_info
+        select * from ur_info
         <where>
             username = #{username}
         </where>

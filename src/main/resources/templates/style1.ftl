@@ -13,7 +13,7 @@
 \begin{document}
 \pagenumbering{gobble} % suppress displaying page number
 
-\name{${name}
+\name{${name}}
 
 \basicInfo{
 \email{yuanbin2014@gmail.com} \textperiodcentered\
