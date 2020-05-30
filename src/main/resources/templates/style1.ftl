@@ -15,78 +15,86 @@
 
 \name{${name}}
 
+\leftline{\Large\centerline{\textbf{求职意向: ${job}}}}
+\vspace{0.5ex}
+
 \basicInfo{
-\email{yuanbin2014@gmail.com} \textperiodcentered\
-\phone{(+86) 131-221-87xxx} \textperiodcentered\
-\linkedin[billryan8]{https://www.linkedin.com/in/billryan8}}
+  \email{${mail}} \textperiodcentered\
+  \phone{(+86) ${phone}}
+}
+
+\section{\faInfo\  个人信息 }
+\vspace{0.5ex}
+\leftline {
+	性别:{${sex}}  \hfill 出生年月:{${date}}\hfill 民族:{${nation}}
+}
+\vspace{0.5ex}
+\leftline{
+	籍贯:{${home}}\hfill 政治面貌:{${face}}  \hfill 婚姻状况:{${marry}}
+}
+\vspace{0.5ex}
+
+\section{\faJob\  求职意向}
+\leftline{
+	意向工作城市:{${city}}\hfill 期望薪资:{${money}}
+}
+\vspace{0.5ex}
 
 \section{\faGraduationCap\  教育背景}
-\datedsubsection{\textbf{上海交通大学}, 上海}{2013 -- 至今}
-\textit{在读硕士研究生}\ 信息与通信工程, 预计 2016 年 3 月毕业
-\datedsubsection{\textbf{西安电子科技大学}, 西安, 陕西}{2009 -- 2013}
-\textit{学士}\ 通信工程
+\leftline{
+	{\textbf{${school}}}\hfill{${degree}} \hfill {${major}}\hfill{${study_start_day} 至 ${study_stop_day}}
+}
+\vspace{0.5ex}
+\qquad ${school_descrip}
+\vspace{0.5ex}
+
+\section{\faSchool\  学校情况}
+\vspace{0.5ex}
+\leftline{\textbf{校园经历}}
+\qquad ${school_experience}
+\vspace{0.5ex}
+
 
 \section{\faUsers\ 实习/项目经历}
-\datedsubsection{\textbf{黑科技公司} 上海}{2015年3月 -- 2015年5月}
-\role{实习}{经理: 高富帅}
-xxx后端开发
-\begin{itemize}
-\item 实现了 xxx 特性
-\item 后台资源占用率减少8\%
-\item xxx
-\end{itemize}
+\vspace{0.5ex}
+\qquad ${job_experience}
+\vspace{0.5ex}
 
-\datedsubsection{\textbf{分布式科学上网姿势}}{2014年6月 -- 至今}
-\role{Golang, Linux}{个人项目，和富帅糕合作开发}
-\begin{onehalfspacing}
-分布式负载均衡科学上网姿势, https://github.com/cyfdecyf/cow
-\begin{itemize}
-\item 修复了连接未正常关闭导致文件描述符耗尽的 bug
-\item 使用Chord 哈希 URL, 实现稳定可靠地分流
-\item xxx (尽量使用量化的客观结果)
-\end{itemize}
-\end{onehalfspacing}
 
-\datedsubsection{\textbf{\LaTeX\ 简历模板}}{2015 年5月 -- 至今}
-\role{\LaTeX, Python}{个人项目}
-\begin{onehalfspacing}
-优雅的 \LaTeX\ 简历模板, https://github.com/billryan/resume
-\begin{itemize}
-\item 容易定制和扩展
-\item 完善的 Unicode 字体支持，使用 \XeLaTeX\ 编译
-\item 支持 FontAwesome 4.5.0
-\end{itemize}
-\end{onehalfspacing}
-
-% Reference Test
-%\datedsubsection{\textbf{Paper Title\cite{zaharia2012resilient}}}{May. 2015}
-%An xxx optimized for xxx\cite{verma2015large}
+%\datedsubsection{\textbf{\LaTeX\ 简历模板}}{2015 年5月 -- 至今}
+%\role{\LaTeX, Python}{个人项目}
+%\begin{onehalfspacing}
+%优雅的 \LaTeX\ 简历模板, https://github.com/billryan/resume
 %\begin{itemize}
-%  \item main contribution
+%  \item 容易定制和扩展
+%  \item 完善的 Unicode 字体支持，使用 \XeLaTeX\ 编译
+%  \item 支持 FontAwesome 4.5.0
+%\end{itemize}
+%\end{onehalfspacing}
+
+\section{\faCogs\  IT 技能}
+\vspace{0.5ex}
+\qquad ${skill}
+\vspace{0.5ex}
+
+
+%\begin{itemize}[parsep=0.5ex]
+%  \item 编程语言: C == Python > C++ > Java
+%  \item 平台: Linux
+%  \item 开发: xxx
 %\end{itemize}
 
-\section{\faCogs\ IT 技能}
-% increase linespacing [parsep=0.5ex]
-\begin{itemize}[parsep=0.5ex]
-\item 编程语言: C == Python > C++ > Java
-\item 平台: Linux
-\item 开发: xxx
-\end{itemize}
+\section{\faAward\ 获奖情况}
+\vspace{0.5ex}
+\qquad ${award}
+\vspace{0.5ex}
 
-\section{\faHeartO\ 获奖情况}
-\datedline{\textit{第一名}, xxx 比赛}{2013 年6 月}
-\datedline{其他奖项}{2015}
+\section{\faOther\ 个人情况}
+\vspace{0.5ex}
+\par{\textit{兴趣爱好}}\par \*
+\qquad ${interest}
+\vspace{0.5ex}
+\par{\textit{自我评价}}\par \*
+\qquad ${evaluate}
 
-\section{\faInfo\ 其他}
-% increase linespacing [parsep=0.5ex]
-\begin{itemize}[parsep=0.5ex]
-\item 技术博客: http://blog.yours.me
-\item GitHub: https://github.com/username
-\item 语言: 英语 - 熟练(TOEFL xxx)
-\end{itemize}
-
-%% Reference
-%\newpage
-%\bibliographystyle{IEEETran}
-%\bibliography{mycite}
 \end{document}

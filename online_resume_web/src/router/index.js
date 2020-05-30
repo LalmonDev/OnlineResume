@@ -13,7 +13,7 @@ import passwdReset from '@/views/passwdReset'
 import manage from '@/views/manage'
 import manageUser from '@/views/manageUser'
 
-import tmp from '@/views/tmp'
+import welcome from '@/views/welcome'
 
 Vue.use(Router)
 
@@ -30,6 +30,11 @@ export default new Router({
       name: 'user_index',
       component: user_index,
       children:[
+        {
+          path: '/',
+          name: 'welcome',
+          component: welcome
+        },
         {
           path: '/userInfo',
           name: 'userInfo',

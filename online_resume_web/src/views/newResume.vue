@@ -2,11 +2,7 @@
   <div id="index">
     <div class="wrap_conter">
       <div class="demo-spin-col">
-        <Spin size="large" fix v-if="spinShow">
-          <Icon type="ios-loading" size=40 class="demo-spin-icon-load"></Icon>
-          <div>Loading</div>
-        </Spin>
-      <ul>
+       <ul>
          <Divider>基本信息</Divider>
         <br>
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
@@ -30,8 +26,19 @@
 
         <Row>
           <Col span="4">
-              <FormItem label="出生年月" style="width: 200px" prop="date">
+              <!-- <FormItem label="出生年月" style="width: 200px" prop="date">
                   <DatePicker type="date"  @on-change="formValidate.date=$event" :value="formatTime" style="width: 200px" placeholder="请选择" v-model="formValidate.date" ></DatePicker>
+              </FormItem> -->
+              <FormItem label="出生年月" style="width: 200px" prop="date">
+              <el-date-picker
+                    v-model="formValidate.date"
+                    type="date"
+                    placeholder="选择日期"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd"
+                    style="width: 200px"
+                    >
+              </el-date-picker>
               </FormItem>
           </Col>
           <Col span="4" offset="4">
@@ -41,11 +48,19 @@
           </Col>
           <Col span="4" offset="4">
             <FormItem label="婚姻状况" prop="marry">
-            <Select v-model="formValidate.marry" style="width:200px" >
+            <!-- <Select v-model="formValidate.marry" style="width:200px" >
                 <Option value="已婚" >已婚</Option>
                 <Option value="未婚">未婚</Option>
                 <Option value="离异">离异</Option>
-            </Select>
+            </Select> -->
+            <el-select v-model="formValidate.marry" style="width:200px" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </FormItem>
           </Col>
          </Row>
@@ -91,12 +106,30 @@
           <Row>
                 <Col span="2">
                   <FormItem label="起止日期" prop="study_start_day">
-                    <DatePicker type="date" @on-change="formValidate.study_start_day=$event" :value="formatTime" style="width: 110px" placeholder="入学年月" v-model="formValidate.study_start_day"></DatePicker>
+                    <!-- <DatePicker type="date" @on-change="formValidate.study_start_day=$event" :value="formatTime" style="width: 110px" placeholder="入学年月" v-model="formValidate.study_start_day"></DatePicker> -->
+                    <el-date-picker
+                          v-model="formValidate.study_start_day"
+                          type="date"
+                          placeholder="选择日期"
+                          format="yyyy 年 MM 月 dd 日"
+                          value-format="yyyy-MM-dd"
+                          style="width: 200px"
+                          >
+                  </el-date-picker>
                   </FormItem>
                 </Col>
-                <Col span="2" offset="1">
+                <Col span="2" offset="3">
                   <FormItem prop="study_stop_day">
-                    <DatePicker type="date" @on-change="formValidate.study_stop_day=$event" :value="formatTime" style="width: 110px" placeholder="毕业年月" v-model="formValidate.study_stop_day"></DatePicker>
+                    <!-- <DatePicker type="date" @on-change="formValidate.study_stop_day=$event" :value="formatTime" style="width: 110px" placeholder="毕业年月" v-model="formValidate.study_stop_day"></DatePicker> -->
+                    <el-date-picker
+                          v-model="formValidate.study_stop_day"
+                          type="date"
+                          placeholder="选择日期"
+                          format="yyyy 年 MM 月 dd 日"
+                          value-format="yyyy-MM-dd"
+                          style="width: 200px"
+                          >
+                  </el-date-picker>
                   </FormItem>
                 </Col>
               </Row>
@@ -147,7 +180,7 @@
            </FormItem>
 
         <Divider>简历模板选择</Divider><br>
-        <RadioGroup v-model="style">
+        <!-- <RadioGroup v-model="style">
           <Row>
             <Col span="10">
               <Radio label="style1" border>模板1</Radio>
@@ -156,9 +189,15 @@
               <Radio label="style2" border>模板2</Radio>
             </Col>
           </Row>
-        </RadioGroup><br>
-
-        <Divider></Divider><br>
+        </RadioGroup> -->
+        <div>
+            <el-radio-group v-model="style" size="small">
+                  <el-radio label="style1" border>模板1</el-radio>
+                  <el-radio label="style2" border>模板2</el-radio>
+                </el-radio-group>
+          </div>
+        <br>
+        <br>
           <FormItem>
               <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
               <Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
@@ -175,8 +214,17 @@
         data () {
             return {
               userName: this.$route.query.user_name,
-              formatTime: '2020-05-10',
               style: 'style1',
+              options: [{
+                        value: '未婚',
+                        label: '未婚'
+                      }, {
+                        value: '已婚',
+                        label: '已婚'
+                      }, {
+                        value: '离异',
+                        label: '离异'
+                      }],
 
                 formValidate: {
                     name: '',
@@ -204,60 +252,60 @@
                     interest: '',
                     evaluate: '',
                 },
-                // ruleValidate: {
-                //     name: [
-                //         { required: true, message: '姓名不能为空', trigger: 'blur' }
-                //     ],
-                //     sex: [
-                //         { required: true, message: '性别不能为空', trigger: 'blur' }
-                //     ],
-                //     nation: [
-                //         { required: true, message: '民族不能为空', trigger: 'blur' }
-                //     ],
-                //     date: [
-                //         { required: true, type: 'date', message: '日期不能为空', trigger: 'change' }
-                //     ],
-                //     face: [
-                //         { required: true, message: '政治面貌不能为空', trigger: 'blur' }
-                //     ],
-                //     marry: [
-                //         { required: true, message: '婚姻状况不能为空', trigger: 'change' }
-                //     ],
-                //     home: [
-                //         { required: true, message: '籍贯不能为空', trigger: 'blur' }
-                //     ],
-                //     phone: [
-                //         { required: true, message: '联系电话不能为空', trigger: 'blur' }
-                //     ],
-                //     mail: [
-                //         { required: true, message: '邮箱不能为空', trigger: 'blur' },
-                //         { type:'email', message: '输入正确的邮箱格式', trigger: 'blur' }
-                //     ],
-                //     job: [
-                //         { required: true, message: '求职岗位不能为空', trigger: 'blur' }
-                //     ],
-                //     city: [
-                //         { required: true, message: '意向城市不能为空', trigger: 'blur' }
-                //     ],
-                //     money: [
-                //         { required: true, message: '期望薪资不能为空', trigger: 'blur' }
-                //     ],
-                //     study_start_day: [
-                //         { required: true, type: 'date', message: '入学日期不能为空', trigger: 'change' }
-                //     ],
-                //     study_stop_day: [
-                //         { required: true, type: 'date', message: '毕业日期不能为空', trigger: 'change' }
-                //     ],
-                //     school: [
-                //         { required: true, message: '学校不能为空', trigger: 'blur' }
-                //     ],
-                //     major: [
-                //         { required: true, message: '专业不能为空', trigger: 'blur' }
-                //     ],
-                //     degree: [
-                //         { required: true, message: '学位不能为空', trigger: 'blur' }
-                //     ]
-                // }
+                ruleValidate: {
+                    name: [
+                        { required: true, message: '姓名不能为空', trigger: 'blur' }
+                    ],
+            //         sex: [
+            //             { required: true, message: '性别不能为空', trigger: 'blur' }
+            //         ],
+            //         nation: [
+            //             { required: true, message: '民族不能为空', trigger: 'blur' }
+            //         ],
+            //         date: [
+            //             { required: true, type: 'date', message: '日期不能为空', trigger: 'change' }
+            //         ],
+            //         face: [
+            //             { required: true, message: '政治面貌不能为空', trigger: 'blur' }
+            //         ],
+            //         marry: [
+            //             { required: true, message: '婚姻状况不能为空', trigger: 'change' }
+            //         ],
+                    home: [
+                        { required: true, message: '籍贯不能为空', trigger: 'blur' }
+                    ],
+                    // phone: [
+                    //     { required: true, message: '联系电话不能为空', trigger: 'blur' }
+                    // ],
+                    mail: [
+                        { required: true, message: '邮箱不能为空', trigger: 'blur' },
+                        { type:'email', message: '输入正确的邮箱格式', trigger: 'blur' }
+                    ],
+                    job: [
+                        { required: true, message: '求职岗位不能为空', trigger: 'blur' }
+                    ],
+                    city: [
+                        { required: true, message: '意向城市不能为空', trigger: 'blur' }
+                    ],
+            //         money: [
+            //             { required: true, message: '期望薪资不能为空', trigger: 'blur' }
+            //         ],
+            //         study_start_day: [
+            //             { required: true, type: 'date', message: '入学日期不能为空', trigger: 'change' }
+            //         ],
+            //         study_stop_day: [
+            //             { required: true, type: 'date', message: '毕业日期不能为空', trigger: 'change' }
+            //         ],
+                    school: [
+                        { required: true, message: '学校不能为空', trigger: 'blur' }
+                    ],
+                    major: [
+                        { required: true, message: '专业不能为空', trigger: 'blur' }
+                    ],
+                    degree: [
+                        { required: true, message: '学位不能为空', trigger: 'blur' }
+                    ]
+                }
             }
         },
 
@@ -276,7 +324,31 @@
               })
               .then(function (response) {
                 if(response.data != null){
-                  this.formValidate = response.data
+                  // this.formValidate = response.data
+                  this.formValidate.name=response.data.name,
+                  this.formValidate.sex=response.data.sex,
+                  this.formValidate.nation=response.data.nation,
+                  this.formValidate.date=response.data.date,
+                  this.formValidate.face=response.data.face,
+                  this.formValidate.marry=response.data.marry,
+                  this.formValidate.home=response.data.home,
+                  this.formValidate.phone=response.data.phone,
+                  this.formValidate.mail=response.data.mail,
+                  this.formValidate.job=response.data.job,
+                  this.formValidate.city=response.data.city,
+                  this.formValidate.money=response.data.money,
+                  this.formValidate.study_start_day=response.data.study_start_day,
+                  this.formValidate.study_stop_day=response.data.study_stop_day,
+                  this.formValidate.school=response.data.school,
+                  this.formValidate.major=response.data.major,
+                  this.formValidate.degree=response.data.degree,
+                  this.formValidate.school_descrip=response.data.school_descrip,
+                  this.formValidate.skill=response.data.skill,
+                  this.formValidate.job_experience=response.data.job_experience,
+                  this.formValidate.school_experience=response.data.school_experience,
+                  this.formValidate.award=response.data.award,
+                  this.formValidate.interest=response.data.interest,
+                  this.formValidate.evaluate=response.data.evaluate
                 }
               }.bind(this)).catch(function (error) {
                 alert(error);
@@ -359,6 +431,6 @@
   .demo-spin-col{
     height: 100px;
     position: relative;
-    border: 1px solid #eee;
+    border: 1px solid #ffffff;
   }
 </style>

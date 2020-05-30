@@ -37,7 +37,7 @@
                     </Col>
                     </Row>
             </Header>
-           <Content :style="{margin: '20px 20px 0', background: '#fff', minHeight: '500px'}">
+           <Content :style="{margin: '20px 20px 0', background: '#fff', minHeight: '1500px'}">
                  <div id="show_user_info">
                    <router-view></router-view>
                  </div>

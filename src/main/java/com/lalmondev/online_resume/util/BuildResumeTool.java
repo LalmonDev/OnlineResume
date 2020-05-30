@@ -36,7 +36,7 @@ public class BuildResumeTool {
         root.put("face",MapEntity.getFace());
         root.put("marry",MapEntity.getMarry());
         root.put("home",MapEntity.getHome());
-        root.put("phone",MapEntity.getPhone());
+        root.put("phone",Long.toString(MapEntity.getPhone()));
         root.put("mail",MapEntity.getMail());
         root.put("job",MapEntity.getJob());
         root.put("city",MapEntity.getCity());
