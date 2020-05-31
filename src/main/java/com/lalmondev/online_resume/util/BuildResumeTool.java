@@ -54,6 +54,11 @@ public class BuildResumeTool {
         root.put("interest",MapEntity.getInterest());
         root.put("evaluate",MapEntity.getEvaluate());
 
+        for (Object key:root.keySet()){
+            if (root.get(key)==null){
+                root.put(key,"暂无");
+            }
+        }
 
         try {
             // 去到用户目录，结合模板，生成tex文件

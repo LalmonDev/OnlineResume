@@ -192,11 +192,14 @@ public class UserController {
         try {
             if (urService.getResumeIdByUserName(userName) != null)
             {
+                // 根据简历ID，删除简历信息
                 System.out.println(userName + "存在简历信息");
                 resumeId = urService.getResumeIdByUserName(userName).getResumeid();
                 resumeService.delete(resumeId);
+                urService.deleteUREntity(resumeId);
             }
 
+            // 删除用户以及文件夹
             userService.deleteUserByName(userName);
             String command = "rmdir /s/q "+ userEntity.getUser_name();
             runtime.CMDTool(command,BuildDirPath);

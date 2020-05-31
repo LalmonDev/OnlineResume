@@ -10,11 +10,26 @@
     <insert id="insertUREntity">
         <if test="urEntity != null">
             insert into ur_info
-            (username,resumeid)
+            (username,resumeid,style)
             values
-            (#{urEntity.username},#{urEntity.resumeid})
+            (#{urEntity.username},#{urEntity.resumeid},#{urEntity.style})
         </if>
     </insert>
+
+    <update id="updateUREntity">
+        update ur_info set username = #{urEntity.username},resumeid = #{urEntity.resumeid},style = #{urEntity.style}
+        <where>
+            resumeid = #{resumeid}
+        </where>
+    </update>
+
+    <delete id="deleteUREntity" >
+        delete from ur_info
+        <where>
+            resumeid = #{resumeid}
+        </where>
+    </delete>
+
     <select id="getResumeIdByUserName" resultMap="urMap">
         select * from ur_info
         <where>

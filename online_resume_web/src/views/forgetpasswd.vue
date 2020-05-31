@@ -4,8 +4,8 @@
             <Form ref="formLogin" :model="formLogin" :rules="ruleLogin">
                 <div class="wrap_conter">
                     <ul>
-                        <li><h2>密码找回</h2></li>
-                        <li>
+                        <li style="list-style: none;"><h2>密码找回</h2></li>
+                        <li style="list-style: none;">
                             <dl>
                                 <FormItem prop="phone" >
                                     <Input name="phone" v-model="formLogin.phone" type="text" placeholder="输入注册手机号" >

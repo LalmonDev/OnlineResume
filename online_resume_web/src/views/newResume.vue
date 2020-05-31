@@ -215,6 +215,7 @@
             return {
               userName: this.$route.query.user_name,
               style: 'style1',
+              // tempPhone: this.formValidate.phone,
               options: [{
                         value: '未婚',
                         label: '未婚'
@@ -274,9 +275,9 @@
                     home: [
                         { required: true, message: '籍贯不能为空', trigger: 'blur' }
                     ],
-                    // phone: [
-                    //     { required: true, message: '联系电话不能为空', trigger: 'blur' }
-                    // ],
+                    phone: [
+                        { required: true, message: '联系电话不能为空', trigger: 'blur' }
+                    ],
                     mail: [
                         { required: true, message: '邮箱不能为空', trigger: 'blur' },
                         { type:'email', message: '输入正确的邮箱格式', trigger: 'blur' }
@@ -332,7 +333,7 @@
                   this.formValidate.face=response.data.face,
                   this.formValidate.marry=response.data.marry,
                   this.formValidate.home=response.data.home,
-                  this.formValidate.phone=response.data.phone,
+                  this.formValidate.phone=response.data.phone.toString(),
                   this.formValidate.mail=response.data.mail,
                   this.formValidate.job=response.data.job,
                   this.formValidate.city=response.data.city,
@@ -356,6 +357,7 @@
             },
 
             handleSubmit (name) {
+              // this.formValidate.phone = this.formValidate.phone;
               this.$Spin.show();
                 this.$refs[name].validate((valid) => {
                     if (valid) {
@@ -387,7 +389,7 @@
                       };
                         this.$axios
                           // .post('/newResume/'+ this.userName, this.formValidate)
-                          .post('/newResume/'+ this.userName, data)
+                          .post('/newResume/'+ this.userName + '&' + this.style, data)
                           .then(response => {
                             this.$Message.success('Success!');
                             this.$Spin.hide();
@@ -396,6 +398,7 @@
                               this.$router.replace({path:'/showResume',query:{user_name:this.userName,style:this.style}})
                             }else if(code == 400){
                               this.$Message.error('Fail!')
+                              this.$Spin.hide();
                             }
                           })
                           .catch(failResponse => {

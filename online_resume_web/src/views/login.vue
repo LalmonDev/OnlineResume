@@ -4,8 +4,8 @@
             <Form ref="formLogin" :model="formLogin" :rules="ruleLogin">
                 <div class="wrap_conter">
                     <ul>
-                        <li><h2>用户登录</h2></li>
-                        <li>
+                        <li style="list-style: none;"><h2>用户登录</h2></li>
+                        <li style="list-style: none;">
                             <dl>
                                 <FormItem prop="userName" >
                                     <Input name="userName" v-model="formLogin.userName" type="text" placeholder="登录名" >

@@ -31,8 +31,11 @@ public class ResumeController {
      * @return
      */
     @CrossOrigin
-    @PostMapping("api/newResume/{user_name}")
-    public Result newResume(@PathVariable String user_name,@RequestBody ResumeEntity resumeEntity) throws InterruptedException {
+    @PostMapping("api/newResume/{user_name}&{style}")
+    public Result newResume(@PathVariable String user_name,@PathVariable String style,@RequestBody ResumeEntity resumeEntity) throws InterruptedException {
+        if (user_name.equals("") || style.equals("")){
+            return new Result(400);
+        }
 
         UREntity urEntity = new UREntity();
         int resumeId ;
@@ -45,20 +48,25 @@ public class ResumeController {
             resumeId = urService.getResumeIdByUserName(user_name).getResumeid();
             resumeService.update(resumeId,resumeEntity);
 
+            urEntity.setUsername(user_name);
+            urEntity.setResumeid(resumeId);
+            urEntity.setStyle(style);
+            urService.updateUREntity(resumeId,urEntity);
             System.out.println(user_name + "更新成功");
         } else {
             System.out.println(user_name + "不存在简历信息");
 
             resumeService.insert(resumeEntity);
             resumeId = resumeService.getResumeIdByName(resumeEntity.getName()).getResume_id();
+
             urEntity.setUsername(user_name);
             urEntity.setResumeid(resumeId);
+            urEntity.setStyle(style);
             urService.insertUREntity(urEntity);
-
             System.out.println(user_name + "插入成功");
         }
 
-        if (!buildResumeTool.BuildResume(user_name,"style1",resumeEntity)){
+        if (!buildResumeTool.BuildResume(user_name,style,resumeEntity)){
             return new Result(400);
         }
 

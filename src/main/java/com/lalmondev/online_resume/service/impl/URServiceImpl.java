@@ -18,6 +18,16 @@ public class URServiceImpl implements URService {
     }
 
     @Override
+    public void updateUREntity(int resume_id,UREntity urEntity) {
+        urDao.updateUREntity(resume_id,urEntity);
+    }
+
+    @Override
+    public void deleteUREntity(int resumeid) {
+        urDao.deleteUREntity(resumeid);
+    }
+
+    @Override
     public UREntity getResumeIdByUserName(String username) {
         return urDao.getResumeIdByUserName(username);
     }

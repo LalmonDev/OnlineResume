@@ -4,8 +4,8 @@
             <Form ref="formRegister" :model="formRegister" :rules="ruleRegister">
                 <div class="wrap_conter">
                     <ul>
-                        <li><h2>用户注册</h2></li>
-                        <li>
+                        <li style="list-style: none;"><h2>用户注册</h2></li>
+                        <li style="list-style: none;">
                             <!-- <div class="name-password-error" v-if="this.$store.state.ifSign">用户名或密码错误</div> -->
                             <dl>
                                 <FormItem prop="user_name" >
