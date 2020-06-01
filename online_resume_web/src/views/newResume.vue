@@ -14,7 +14,14 @@
               </Col>
               <Col span="4" offset="4" >
                 <FormItem label="性别" prop="sex">
-                    <Input v-model="formValidate.sex" style="width: 200px" placeholder="性别"></Input>
+                    <el-select v-model="formValidate.sex" style="width:200px" placeholder="性别">
+                        <el-option
+                          v-for="item in sexs"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
                 </FormItem>
               </Col>
               <Col span="4" offset="4">
@@ -48,11 +55,6 @@
           </Col>
           <Col span="4" offset="4">
             <FormItem label="婚姻状况" prop="marry">
-            <!-- <Select v-model="formValidate.marry" style="width:200px" >
-                <Option value="已婚" >已婚</Option>
-                <Option value="未婚">未婚</Option>
-                <Option value="离异">离异</Option>
-            </Select> -->
             <el-select v-model="formValidate.marry" style="width:200px" placeholder="请选择">
                 <el-option
                   v-for="item in options"
@@ -105,32 +107,32 @@
           <Divider>教育背景</Divider><br>
           <Row>
                 <Col span="2">
-                  <FormItem label="起止日期" prop="study_start_day">
-                    <!-- <DatePicker type="date" @on-change="formValidate.study_start_day=$event" :value="formatTime" style="width: 110px" placeholder="入学年月" v-model="formValidate.study_start_day"></DatePicker> -->
+                  <FormItem label="起止日期" style="width: 0px">
                     <el-date-picker
                           v-model="formValidate.study_start_day"
                           type="date"
-                          placeholder="选择日期"
+                          placeholder="开始日期"
                           format="yyyy 年 MM 月 dd 日"
                           value-format="yyyy-MM-dd"
+                          :picker-options="pickerOptionsStart"
                           style="width: 200px"
                           >
                   </el-date-picker>
                   </FormItem>
                 </Col>
-                <Col span="2" offset="3">
-                  <FormItem prop="study_stop_day">
-                    <!-- <DatePicker type="date" @on-change="formValidate.study_stop_day=$event" :value="formatTime" style="width: 110px" placeholder="毕业年月" v-model="formValidate.study_stop_day"></DatePicker> -->
+
+               <Col span="2" offset="5">
                     <el-date-picker
                           v-model="formValidate.study_stop_day"
                           type="date"
-                          placeholder="选择日期"
+                          placeholder="结束日期"
                           format="yyyy 年 MM 月 dd 日"
                           value-format="yyyy-MM-dd"
+                          :picker-options="pickerOptionsEnd"
                           style="width: 200px"
                           >
                   </el-date-picker>
-                  </FormItem>
+
                 </Col>
               </Row>
 
@@ -180,16 +182,6 @@
            </FormItem>
 
         <Divider>简历模板选择</Divider><br>
-        <!-- <RadioGroup v-model="style">
-          <Row>
-            <Col span="10">
-              <Radio label="style1" border>模板1</Radio>
-            </Col>
-            <Col span="10" offset="4">
-              <Radio label="style2" border>模板2</Radio>
-            </Col>
-          </Row>
-        </RadioGroup> -->
         <div>
             <el-radio-group v-model="style" size="small">
                   <el-radio label="style1" border>模板1</el-radio>
@@ -215,7 +207,22 @@
             return {
               userName: this.$route.query.user_name,
               style: 'style1',
-              // tempPhone: this.formValidate.phone,
+              pickerOptionsStart: {
+                                   disabledDate: time => {
+                                          if (this.formValidate.study_stop_day) {
+                                               return time.getTime() > new Date(this.formValidate.study_stop_day).getTime()
+                                         }
+                                  }
+                           },
+              pickerOptionsEnd: {
+                       disabledDate: time => {
+                             if (this.formValidate.study_start_day) {
+                                     return time.getTime() < new Date(this.formValidate.study_start_day).getTime() - 86400000
+                             }
+                        }
+              },
+
+
               options: [{
                         value: '未婚',
                         label: '未婚'
@@ -226,6 +233,14 @@
                         value: '离异',
                         label: '离异'
                       }],
+
+                sexs: [{
+                          value: '男',
+                          label: '男'
+                        }, {
+                          value: '女',
+                          label: '女'
+                        }],
 
                 formValidate: {
                     name: '',
@@ -324,8 +339,6 @@
                   }
               })
               .then(function (response) {
-                if(response.data != null){
-                  // this.formValidate = response.data
                   this.formValidate.name=response.data.name,
                   this.formValidate.sex=response.data.sex,
                   this.formValidate.nation=response.data.nation,
@@ -350,14 +363,13 @@
                   this.formValidate.award=response.data.award,
                   this.formValidate.interest=response.data.interest,
                   this.formValidate.evaluate=response.data.evaluate
-                }
+
               }.bind(this)).catch(function (error) {
                 alert(error);
               });
             },
 
             handleSubmit (name) {
-              // this.formValidate.phone = this.formValidate.phone;
               this.$Spin.show();
                 this.$refs[name].validate((valid) => {
                     if (valid) {

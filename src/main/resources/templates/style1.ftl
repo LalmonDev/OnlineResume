@@ -96,5 +96,4 @@
 \vspace{0.5ex}
 \par{\textit{自我评价}}\par \*
 \qquad ${evaluate}
-
 \end{document}

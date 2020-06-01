@@ -1,22 +1,24 @@
 <template>
-  <div class="index">
-      <div id="index_pc_bj">
-        <div class="wrap_conter">
-          <ul>
-              <li><h2>个人信息</h2></li>
-              <li>
-                  <dl>
-                      <Input v-model="userName" prefix="md-contact" disabled/>
-                        <span>line</span>
-                      </Input>
-                      <Input v-model="userPhone" prefix="ios-call" disabled/>
-                        <span>line</span>
-                      </Input>
-                  </dl>
-              </li>
-          </ul>
+  <div>
+    <div class="index">
+        <div id="index_pc_bj">
+          <div class="wrap_conter">
+            <ul>
+                <li><h2>个人信息</h2></li>
+                <li>
+                    <dl>
+                        <Input v-model="userName" prefix="md-contact" disabled/>
+                          <span>line</span>
+                        </Input>
+                        <Input v-model="userPhone" prefix="ios-call" disabled/>
+                          <span>line</span>
+                        </Input>
+                    </dl>
+                </li>
+            </ul>
+          </div>
         </div>
-      </div>
+    </div>
   </div>
 </template>
 
