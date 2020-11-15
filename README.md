@@ -16,4 +16,5 @@
 SpringBoot后台用户信息数据库搭建完毕
 * 2020.06.01<br>
 完成基本功能开发
-#### 系统处于开发阶段,功能将逐步完善......
+#### 系统功能基本完善，满足毕设要求。
+#### 基于Go语言和Beego框架的新版本正在研发中，详情可转到：<https://github.com/LalmonDev/OnlineResume-GoVersion>
